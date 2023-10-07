@@ -1,0 +1,33 @@
+
+
+
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %} Products | Delete {{obj.title|default:"Product"}} {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'apps/products/delete.css' %}">
+{% endblock head %}
+
+{% block content %}
+
+    <section class="main-section">
+        <form action="." method="post" hx-post="." hx-swap="none" >
+            <p>Are sure you want to delete <a href="{{obj.get_product_url}}">{{obj.title|default:"Product"}}</a>?</p>
+            <button type="submit" name="products:delete" value="{{obj.id}}">Delete</button>
+
+            {#} previous link <a href=""></a> {#}
+
+        </form>
+    </section>
+
+{% endblock content %}
+
+
+
+{% block scripts %}
+{% endblock scripts %}
+
+
+

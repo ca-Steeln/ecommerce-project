@@ -1,0 +1,43 @@
+
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %} Inventory | {{client.username}} {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'apps/inventories/inventory.css' %}">
+{% endblock head %}
+
+{% block navigation %}
+{% endblock navigation %}
+
+{% block content %}
+    <section class="main-section">
+        <article>
+            <h2>{{client}}'s inventory</h2>
+            <a href="{{obj.get_clear_url}}">Clear inventory</a>
+            <a href="{{obj.get_order_url}}">Order</a>
+        </article>
+        <article>
+            {% if products %}
+                {% for product in products %}
+                    <div class="product">
+                        <a href="{{product.get_product_url}}"><h3>{{product.title}}</h3></a>
+                        <p>{{product.description}}</p>
+                        {% if product.image %}
+                            <img  src="{{ product.image.url }}" {#} !! remove -> {#} style="width:10%;">
+                        {% endif %}
+
+                        <a href="{% url 'inventories:delete' client_pk=client.pk product_slug=product.slug %}">Delete</a>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>looks like this page has no content yet.</p>
+            {% endif %}
+        </article>
+    </section>
+{% endblock content %}
+
+
+{% block scripts %}
+{% endblock scripts %}

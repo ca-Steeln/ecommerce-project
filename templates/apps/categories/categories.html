@@ -1,0 +1,45 @@
+
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %} Categories {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'apps/categories/categories.css' %}">
+{% endblock head %}
+
+{% block navigation %}
+    {% if user.is_staff %}
+        <a href="{% url 'categories:create' %}" class="regular-link">Create</a>
+    {% endif %}
+{% endblock navigation %}
+
+{% block content %}
+    <section class="main-section">
+        {% if obj %}
+
+            {#} <article> element will be applied for each category object {#}
+            {% for category in obj %}
+                <article class="categories-field">
+                    <div class="category">
+                        <h3><a href="{{category.get_category_url}}">{{category.title}}</a></h3>
+                        <p>{{category.description}}</p>
+
+                        {% if category.image %}
+                            <img  src="{{ category.image.url }}" style="width:10%;">
+                        {% endif %}
+
+                        <p>category active?: {{category.active}}</p>
+                    </div>
+                </article>
+            {% endfor %}
+
+        {% else %}
+            <p>looks like this page has no content yet.</p>
+        {% endif %}
+    </section>
+{% endblock content %}
+
+
+{% block scripts %}
+{% endblock scripts %}

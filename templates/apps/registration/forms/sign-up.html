@@ -1,0 +1,20 @@
+
+<form method="post" action="{% url 'registration:sign-up' %}" hx-post="{% url 'registration:sign-up' %}" hx-swap="none">
+    {% csrf_token %}
+
+    <div class="htmx-indicator">Loading...</div>
+
+
+    <div class="registration">
+
+        {{form.username}}
+        {{form.email}}
+        {{form.password1}}
+        {{form.password2}}
+
+        <p>have an account? <a href="{% url 'registration:login' %}">Here</a></p>
+    </div>
+
+    <button type="submit" name="registration:sign-up" value="sign-up" class="btn btn-success" id="form-trigger">Sign up</button>
+
+</form>

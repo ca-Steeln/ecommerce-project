@@ -1,0 +1,16 @@
+
+<div data-toast-container class="toast-container">
+        <div data-toast-template class="toast" role="alert" >
+
+            <div data-toast-body class="toast-body"></div>
+            <button close-msg-btn type="button" class="close-msg-btn fa-solid fa-x" data-bs-dismiss="toast" aria-label="Close" ></button>
+        </div>
+
+        {% for message in messages %}
+            <div class="toast {{message.tags}}" role="alert">
+                <div data-toast-body class="toast-body">{{message.message}}</div>
+                <button close-msg-btn type="button" class="close-msg-btn fa-solid fa-x" data-bs-dismiss="toast" aria-label="Close" ></button>
+            </div>
+
+        {% endfor %}
+</div>

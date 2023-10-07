@@ -1,0 +1,31 @@
+
+
+
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %} Orders | Abort Order {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'apps/orders/abort.css' %}">
+{% endblock head %}
+
+{% block content %}
+    <section class="main-section">
+        <form action="." method="post" hx-post="." hx-swap="none">
+            {% csrf_token %}
+            <div class="htmx-indicator">Loading...</div>
+
+            <p>Are sure you want to abort the <a href="{{obj.get_order_url}}">order</a>?</p>
+            <button type="submit" name="orders:abort" value="{{obj.id}}">Abort</button>
+
+            {#} previous link <a href=""></a> {#}
+
+        </form>
+    </section>
+{% endblock content %}
+
+
+
+{% block scripts %}
+{% endblock scripts %}

@@ -1,0 +1,11 @@
+
+
+<form action="." method="post" hx-post="." hx-swap="outerHTML">
+    {% csrf_token %}
+    <div class="htmx-indicator">Loading...</div>
+
+    {{obj.username}}
+    {{obj.created_at}}
+    {{obj.image}}
+
+</form>

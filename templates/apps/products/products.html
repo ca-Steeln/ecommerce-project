@@ -1,0 +1,44 @@
+
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %} Products {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'apps/products/products.css' %}">
+{% endblock head %}
+
+{% block navigation %}
+    {% if user.is_staff %}
+        <a href="{{category.get_create_url}}" class="regular-link">Create</a>
+    {% endif %}
+{% endblock navigation %}
+
+{% block content %}
+    <section class="main-section">
+        {% if obj %}
+
+            {#} article element will be applied for each category object {#}
+            {% for object in obj %}
+                <article>
+                    <h3><a href="{{object.get_product_url}}">{{object.title}}</a></h3>
+                    <p>{{object.description}}</p>
+
+                    {% if object.image %}
+                        <img  src="{{ object.image.url }}" style="width:10%;">
+                    {% endif %}
+
+                    <p>Products has a discount?: {{object.discount}}</p>
+                    <p>Products active?: {{object.active}}</p>
+                </article>
+            {% endfor %}
+
+        {% else %}
+            <p>looks like this page has no content yet.</p>
+        {% endif %}
+    </section>
+{% endblock content %}
+
+
+{% block scripts %}
+{% endblock scripts %}

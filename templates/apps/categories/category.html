@@ -1,0 +1,55 @@
+
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %} Categories | {{obj.name|default:"Category"}} {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'apps/categories/category.css' %}">
+{% endblock head %}
+
+{% block navigation %}
+    {% if user.is_staff %}
+        <a href="{% url 'products:create' category_name=obj.name %}" class="primary-link">Create Product</a>
+        <a href="{{obj.get_update_url}}" class="regular-link">Update</a>
+        <a href="{{obj.get_delete_url}}" class="regular-link">Delete</a>
+    {% endif %}
+{% endblock navigation %}
+
+{% block content %}
+    <section class="main-section">
+        {% if obj %}
+            <article>
+                <h3>{{obj.title}}</h3>
+                <p>{{obj.description}}</p>
+
+                {% if obj.image %}
+                    <img  src="{{ object.image.url }}" style="width:10%;">
+                {% endif %}
+
+                <input type="checkbox" checked={{obj.active}} disabled>
+            </article>
+            <article>
+                {% for product in products %}
+                    <div class="product">
+
+                        <a href="{{product.get_product_url}}"><h3>{{product.title}}</h3></a>
+                        <h4>{{product.adminPrice}}</h4>
+                        <h4>{{product.clientPrice}}</h4>
+                        <p>{{product.description}}</p>
+                        {% if product.image %}
+                            <img  src="{{ product.image.url }}" style="width:10%;">
+                        {% endif %}
+                    </div>
+
+                {% endfor %}
+            </article>
+        {% else %}
+            <p>looks like this page has no content yet.</p>
+        {% endif %}
+    </section>
+{% endblock content %}
+
+
+{% block scripts %}
+{% endblock scripts %}

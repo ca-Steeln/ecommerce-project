@@ -1,0 +1,29 @@
+
+
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %} Libray | Login {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'apps/registration/logout.css' %}">
+{% endblock head %}
+
+{% block content %}
+    <section class="main-section">
+        <form action="{% url 'registration:logout' %}" method="post" hx-post="{% url 'registration:logout' %}" hx-swap="none">
+            {% csrf_token %}
+            <div class="htmx-indicator">Loading...</div>
+
+            <p>Are sure you want to logout?</p>
+            <button type="submit" name="registration:logout" value="logout">Logout</button>
+
+            {#} previous link <a href=""></a> {#}
+
+        </form>
+    </section>
+{% endblock content %}
+
+
+{% block scripts %}
+{% endblock scripts %}

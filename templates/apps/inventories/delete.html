@@ -1,0 +1,31 @@
+
+
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %} Inventory | Delete {{obj.title}} {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'apps/inventories/abort.css' %}">
+{% endblock head %}
+
+{% block content %}
+    <section class="main-section">
+        <form action="." method="post" hx-post="." hx-swap="none">
+
+            {% csrf_token %}
+            <div class="htmx-indicator">Loading...</div>
+
+            <p>Are sure you want to delete this <a href="{{obj.get_product_url}}">Product</a> from your inventory?</p>
+            <button type="submit" name="inventories:delete" value="{{obj.id}}">Delete</button>
+
+            {#} previous link <a href=""></a> {#}
+
+        </form>
+    </section>
+{% endblock content %}
+
+
+
+{% block scripts %}
+{% endblock scripts %}

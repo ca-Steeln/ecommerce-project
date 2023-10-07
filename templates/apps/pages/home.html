@@ -1,0 +1,23 @@
+
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %} Libray | Introduction {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'apps/pages/homeStyle.css' %}">
+{% endblock head %}
+
+{% block content %}
+    <section class="main-section" >
+        <h1>Introduction</h1>
+        <form action="." hx-post="." hx-swap="none">
+
+            <button type="submit" name="message" value="message">Message</button>
+        </form>
+    </section>
+{% endblock content %}
+
+
+{% block scripts %}
+{% endblock scripts %}

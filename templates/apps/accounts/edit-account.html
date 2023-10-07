@@ -1,0 +1,27 @@
+
+
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %} Libray | Edit {{username|default:"Edit Profile"}} {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'apps/accounts/account.css' %}">
+{% endblock head %}
+
+{% block navigation %}
+{% endblock navigation %}
+
+{% block content %}
+    <section class="main-section">
+        {% include "apps/accounts/forms/edit-account.html" %}
+    </section>
+{% endblock content %}
+
+
+{% block section %}
+{% endblock section %}
+
+
+{% block scripts %}
+{% endblock scripts %}

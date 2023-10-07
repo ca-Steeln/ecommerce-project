@@ -1,0 +1,19 @@
+
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %} Project | Login {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'apps/registration/login.css' %}">
+{% endblock head %}
+
+{% block content %}
+    <section class="main-section">
+        {% include "apps/registration/forms/login.html" %}
+    </section>
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}
+

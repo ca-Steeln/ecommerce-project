@@ -1,0 +1,11 @@
+
+django==4.2
+django-dotenv
+gunicorn
+psycopg2-binary
+django-htmx
+uuid
+pillow
+django-storages
+boto3
+pint

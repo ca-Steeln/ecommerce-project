@@ -1,0 +1,39 @@
+
+
+form{
+
+    display: grid;
+    place-items: center;
+
+    width: 33em;
+    aspect-ratio: 1 / 1;
+
+    border-radius: .6rem;
+
+    box-shadow: .4px .6px 6px 0 #b5baff;
+}
+
+
+.registration{
+    display: grid;
+    justify-items: space-around;
+    align-items: center;
+
+    height: 100%;
+    width: 100%;
+}
+
+.registration p a{
+
+    font-weight: bold;
+    text-decoration: underline;
+    color: var(--main-c);
+}
+
+
+.registration input:focus {
+
+    background-color: var(--sec-light-c);
+}
+
+

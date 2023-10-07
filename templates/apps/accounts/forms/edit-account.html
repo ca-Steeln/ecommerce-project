@@ -1,0 +1,13 @@
+
+
+<form hx-boost="true" action="." method="post" hx-post="." hx-swap="none">
+    {% csrf_token %}
+    <div class="htmx-indicator">Loading...</div>
+
+    {{obj}}
+    {{u_form}}
+    {{a_form}}
+
+
+    <button type="submit" name="accounts:edit" value="{{obj.pk}}"> Submit </button>
+</form>

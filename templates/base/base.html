@@ -1,0 +1,113 @@
+
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Library {% endblock title %}</title>
+
+    <link rel="stylesheet" href="{% static 'base/base.css' %}">
+    <link rel="stylesheet" href="{% static 'messages/toasts.css' %}">
+    {% block head %}
+    {% endblock head %}
+
+</head>
+<body>
+
+    <header>
+        <nav class="main-nav" id="main-nav-id">
+
+            <div class="details"></div>
+
+            <nav class="primary-navigation">
+
+                {% include "base/parts/nav.html" %}
+
+                {% block navigation %}
+                {% endblock navigation %}
+            </nav>
+
+
+            {% comment %} <div class="nav-dropdown-menu" id="nav-dropdown-menu">
+                <button type="button" class="btn-dropdown-toggle bars-btn fa fa-solid fa-bars"></button>
+                <nav class="nav-menu" id="nav-menu">
+                    <ul>
+                        <li><a href="{% url 'pages:home' %}" class="regular-link">Get Started</a></li>
+                        <li><a href="#" class="primary-link">Service</a></li>
+                        <li><a href="#" class="primary-link">See Projects</a></li>
+                        <li><a href="{% url 'pages:about' %}" class="primary-link">Learn More</a></li>
+
+                    </ul>
+                </nav>
+
+            </div> {% endcomment %}
+
+        </nav>
+    </header>
+
+    {% include 'messages/toasts.html' %}
+
+    {% block content %}
+    {% endblock content %}
+
+    <footer>
+        <div class="footer-field">
+            <div class="content">
+                <div class="details">
+                    <h1>Steeln<span class="dot">.</span></h1>
+
+                    <div class="socialmedia-navigation">
+
+                        <a href="#" class="sm-link mail"><i class="fa-solid fa-envelope"></i></a>
+                        <a href="#" class="sm-link facebook"> <i class="fa fa-brands fa-square-facebook"></i></a>
+                        <a href="#" class="sm-link instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="sm-link twitter"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" class="sm-link youtube"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="navigation">
+
+                    <nav class="get-around">
+                        <ul>
+                            <li><a href="{% url 'pages:home' %}" class="footer-nav-link">Get Started</a></li>
+                            <li><a href="#" class="footer-nav-link">Service</a></li>
+                            <li><a href="#" class="footer-nav-link">See Projects</a></li>
+                            <li><a href="{% url 'pages:about' %}" class="footer-nav-link">Learn More</a></li>
+
+                        </ul>
+                    </nav>
+                </div>
+
+            </div>
+            <div class="context">
+
+                <div class="rights">
+                    <p>
+                        Copyright © 2021 - 2023 Steeln
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'base/base.js' %}"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+    <script src="{% static 'messages/toasts.js' %}"></script>
+    <script>
+        document.body.addEventListener("htmx:configRequest", (e)=>{
+            e.detail.headers['X-CSRFToken'] = '{{ csrf_token }}'
+        })
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    {% block scripts %}
+    {% endblock scripts %}
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+
+
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %} Libray | {{username|default:"Account"}} Profile {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'apps/accounts/account.css' %}">
+{% endblock head %}
+
+{% block navigation %}
+    {% if user.id == obj.id %}
+        <a href="{{user.get_edit_account_url}}" class="primary-link">Edit Account</a>
+    {% endif %}
+
+{% endblock navigation %}
+
+{% block content %}
+    <section class="main-section" id="account-main-section">
+        {% include "apps/accounts/forms/account.html" %}
+    </section>
+{% endblock content %}
+
+
+{% block scripts %}
+{% endblock scripts %}

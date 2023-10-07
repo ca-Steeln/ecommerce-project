@@ -1,0 +1,46 @@
+
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %} Products | {{obj.title|default:"Products"}} {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'apps/products/product.css' %}">
+{% endblock head %}
+
+{% block navigation %}
+
+    {% if user.is_staff %}
+        <a href="{{obj.get_update_url}}" class="primary-link">Update</a>
+        <a href="{{obj.get_delete_url}}" class="primary-link">Delete</a>
+    {% endif %}
+{% endblock navigation %}
+
+{% block content %}
+    <section class="main-section">
+        {% if obj %}
+            <article>
+                <h3>{{obj.title}}</h3>
+                <p>{{obj.description}}</p>
+
+                {% if obj.image %}
+                    <img  src="{{ obj.image.url }}" style="width:20%;">
+                {% endif %}
+
+                <form action="." method="post" hx-post="." hx-swap="none">
+                    {% csrf_token %}
+                    <div class="htmx-indicator">Loading...</div>
+                    <button type="submit" name="products:add" value="{{obj.id}}" class="primary-link">Add to inventory</button>
+                </form>
+
+            </article>
+        {% else %}
+            <p>looks like this page has no content yet.</p>
+        {% endif %}
+    </section>
+{% endblock content %}
+
+
+
+{% block scripts %}
+{% endblock scripts %}

@@ -1,0 +1,24 @@
+
+
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %} Libray | Sign Up {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'apps/registration/signup.css' %}" hx-boost="true">
+{% endblock head %}
+
+{% block content %}
+    <section class="main-section">
+        <article id="#form-article">
+
+            {% include "apps/registration/forms/sign-up.html" %}
+        </article>
+    </section>
+{% endblock content %}
+
+
+{% block scripts %}
+{% endblock scripts %}
+

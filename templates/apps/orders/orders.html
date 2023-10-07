@@ -1,0 +1,40 @@
+
+
+
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %} Orders | {{client.username}} {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'apps/orders/orders.css' %}">
+{% endblock head %}
+
+{% block navigation %}
+{% endblock navigation %}
+
+{% block content %}
+    <section class="main-section">
+        <article>
+            <h2>{{client}}'s orders</h2>
+        </article>
+        <article>
+            {% if obj %}
+                {% for order in obj %}
+                    <div class="order">
+                        <a href="{{order.get_order_url}}"><h3>{{order}}</h3></a>
+                        <p> Status: {{order.get_status_display}}</p>
+                        <p> Product count: {{order.products.count}}</p>
+                        <p> Created at: {{order.created_at}}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>looks like this page has no content yet.</p>
+            {% endif %}
+        </article>
+    </section>
+{% endblock content %}
+
+
+{% block scripts %}
+{% endblock scripts %}
