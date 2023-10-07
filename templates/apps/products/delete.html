@@ -14,6 +14,10 @@
 
     <section class="main-section">
         <form action="." method="post" hx-post="." hx-swap="none" >
+
+            {% csrf_token %}
+            <div class="htmx-indicator">Loading...</div>
+
             <p>Are sure you want to delete <a href="{{obj.get_product_url}}">{{obj.title|default:"Product"}}</a>?</p>
             <button type="submit" name="products:delete" value="{{obj.id}}">Delete</button>
 

@@ -9,3 +9,4 @@ pillow
 django-storages
 boto3
 pint
+pathlib
