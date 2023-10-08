@@ -30,7 +30,7 @@ DEBUG =  str(environ.get('DEBUG')).lower() == 'true'
 
 ALLOWED_HOSTS = []
 if not DEBUG:
-    ALLOWED_HOSTS += [environ.get('ALLOWED_HOST')]
+    ALLOWED_HOSTS += [environ.get('ALLOWED_HOSTS')]
 
 # Application definition
 
