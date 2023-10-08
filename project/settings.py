@@ -14,6 +14,7 @@ from django.contrib.messages import DEBUG, INFO, SUCCESS, WARNING, ERROR
 
 from pathlib import Path
 from os import environ, path
+from dj_database_url import parse
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -92,6 +93,9 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+DATABASES['default'] = parse(environ.get('DATABASE_URL'))
+
 
 
 # Password validation
