@@ -136,7 +136,7 @@ STATICFILES_DIRS = [
         BASE_DIR, 'project/static'
     )
 ]
-STATIC_ROOT = path.join(BASE_DIR, 'static')
+STATIC_ROOT = path.join(BASE_DIR, 'staticfiles-cdn')
 
 # media files (Images)
 
