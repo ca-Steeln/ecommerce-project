@@ -1,0 +1,38 @@
+
+
+{#} staff user links {#}
+{% if user.is_staff %}
+    <a href="/admin/" class="primary-link">Admin</a>
+{% endif %}
+
+
+{#} public links {#}
+<a href="{% url 'pages:home' %}" class="regular-link">Introduction</a>
+<a href="{% url 'pages:about' %}"  class="primary-link">Learn More</a>
+<a href="{% url 'categories:categories' %}" class="primary-link">Categories</a>
+
+
+{#} authenticated user links {#}
+{% if user.is_authenticated %}
+
+    <a href="{% url 'orders:orders' client_pk=user.pk %}" class="primary-link">Orders</a>
+    <a href="{% url 'inventories:inventory' client_pk=user.pk %}" class="primary-link">Inventory</a>
+
+    {% if not request.path == user.get_account_url %}
+        <a href="{{user.get_account_url}}" class="primary-link">{{user.username}}</a>
+    {% endif %}
+    <a href="{% url 'registration:logout' %}" class="regular-link">Logout</a>
+
+{% endif %}
+
+
+{% if user.is_anonymous %}
+
+    {#} Anonymous links {#}
+    <a href="{% url 'registration:login' %}" class="regular-link">Login</a>
+
+{% endif %}
+
+{#} public links {#}
+<a href="{% url 'registration:sign-up' %}" class="primary-link">Sign Up</a>
+
