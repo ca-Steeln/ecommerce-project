@@ -1,0 +1,519 @@
+
+/* base code ------------------------ */
+:root{
+
+    --ff-primary: 'Trebuchet MS', Heebo, sans-serif;
+
+    /* Colors */
+    --main-c: #5f43b2;
+    --main-light-c: #6a62dc;
+    --main-dark-c: #3a3153;
+
+    --sec-c: #bdbebe ;
+    --sec-light-c: #fefdfd;
+    --sec-warm-c: #b1aebb;
+    --sec-dark-c: #010101 ;
+
+    --warm-c: #faba76;
+    --cold-c: #71e1e1;
+    --dark-c: #06022a;
+
+}
+
+*,
+*::after,
+*::before{
+
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body{
+    font-family: var(--ff-primary);
+    padding: 0;
+    margin: 0;
+    /* background: linear-gradient(140deg, var(--main-dark-c), var(--dark-c)); */
+    background-color: #b1aebb;
+}
+
+.main-section {
+
+    display: grid;
+    position: relative;
+    padding-top: calc(3rem + 2%);
+}
+
+section{
+
+    display: grid;
+    place-items: center;
+    grid-auto-rows: auto;
+    min-height: 100vh;
+    width: 100%;
+    gap: 1rem;
+
+    padding: 2%;
+}
+
+section::before{
+    color: var(--warm-c);
+    font-weight: 800;
+    margin: 1rem 0;
+
+    font-size: clamp(2.5rem, calc(1.5rem + 5vw), 3rem);
+}
+
+section::after{
+    content: '';
+    height: fit-content;
+    bottom: 0;
+    width: 60%;
+    border: var(--warm-c) 1px solid;
+    margin: 1rem;
+}
+
+input {
+
+    background-color: var(--sec-light-c);
+    border-style: none;
+    border-radius: .2rem;
+
+    width: 100%;
+
+    border: var(--main-light-c) 2px solid;
+    outline: none;
+}
+
+img , video, picture{
+    max-width: 100%;
+    display: block;
+}
+
+h1, h2, h3, h4, p{
+    padding: 0;
+    margin: 0;
+}
+
+p{
+    color: var(--sec-light-c);
+    line-height: 1.6;
+    font-size: clamp(1rem, calc(.5rem + .6vw), 1.5rem);
+}
+
+ul,
+li,
+a,
+ul li,
+ul li a{
+    list-style: none;
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+    width: fit-content;
+    transition: all 150ms ease;
+    font-weight: bold;
+    cursor: pointer;
+    padding: .2rem;
+    border-radius: .2rem;
+}
+
+
+
+
+/* styling code section --------------------------*/
+
+header{
+    display: grid;
+    width: 100%;
+    position: absolute;
+
+}
+
+header::after{
+    display: grid;
+    justify-self: center;
+    margin-top: .5rem;
+    content: '';
+    width: 60%;
+    border-bottom: var(--warm-c) 1px solid;
+    z-index: 200;
+    animation: changeBorderColor 3s infinite;
+}
+
+
+.main-nav,
+.primary-navigation{
+    display: grid;
+    place-items: center;
+}
+
+
+.main-nav{
+    width: 100%;
+    height: 3rem;
+    grid-auto-flow: column;
+    z-index: 100;
+}
+
+.main-nav .details::after {
+    content: 'Library';
+    font-weight: 600;
+    font-size: 2rem;
+    color: var(--sec-light-c);
+}
+
+.main-nav .primary-navigation {
+    display: grid;
+    grid-auto-flow: column;
+    gap: clamp(.5rem, calc(.5rem + 2vw), 1rem);
+}
+
+.main-nav .primary-navigation a{
+    padding: .3rem;
+}
+
+
+.primary-link,
+.regular-link{
+    padding: .5rem ;
+    border-radius: .4rem;
+    border: var(--warm-c) 2px solid;
+}
+
+.primary-link,
+.regular-link:active{
+    background-color: var(--warm-c);
+    color: var(--main-dark-c);
+
+}
+
+.primary-link:active,
+.regular-link{
+
+    background-color: var(--main-dark-c);
+    color: var(--sec-c);
+}
+
+/* dropdown menu ---------------- */
+
+.main-nav .nav-dropdown-menu{
+    display: none;
+
+}
+
+/* that should be removed !!! */
+
+.category,
+.product{
+    border: var(--main-c);
+    border-radius: .4rem;
+}
+
+
+/* footer */
+
+footer{
+    width: 100%;
+    min-height: 20rem;
+    padding: 2%;
+    padding-top: 1rem;
+    background-color: var(--dark-c);
+}
+
+.footer-field{
+    display: grid;
+    grid-template-rows: auto  1fr auto;
+    width: 100%;
+    height: 100%;
+    gap: 1.5rem;
+
+}
+
+.footer-field .details{
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1rem;
+}
+
+.footer-field .details h1{
+
+    display: grid;
+    grid-auto-columns: auto;
+    grid-auto-flow: column;
+    place-content: center;
+    color: var(--sec-c);
+    font-size: clamp(2rem, calc(2rem + 5vw), 5rem);
+}
+
+.footer-field .details .dot{
+    color: var(--warm-c);
+    animation: changeTextColor 3s infinite;
+}
+
+footer .socialmedia-navigation{
+
+    display: grid;
+    place-content: center;
+    gap: 5%;
+    grid-auto-flow: column;
+
+}
+
+.socialmedia-navigation .sm-link i{
+
+    color: var(--sec-warm-c);
+    font-size: clamp(1.5rem, calc(.7rem + 2vw), 2rem);
+    transition: all 200ms ease;
+}
+
+footer .content{
+
+    display: grid;
+    gap: 1.5rem;
+}
+
+
+footer .navigation{
+    display: grid;
+    position: relative;
+    place-items: center;
+    padding: 1rem 0;
+    grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr));
+}
+
+footer .navigation::before{
+    content: '';
+    border-top: var(--sec-c) 1px solid;
+    width: 60%;
+    position: absolute;
+    top: 0;
+}
+
+footer .navigation nav{
+
+    display: grid;
+    justify-items: center;
+}
+
+.navigation .footer-nav-link{
+
+    color: var(--sec-c);
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 200ms ease;
+
+}
+
+.navigation .footer-nav-link:hover,
+.navigation .footer-nav-link:active,
+.socialmedia-navigation .sm-link i:hover,
+.socialmedia-navigation .sm-link i:active{
+
+    color: var(--warm-c);
+}
+
+
+footer .get-around::before{
+
+    content: 'Get around';
+    line-height: 1.3;
+    font-weight: 600;
+    color: var(--warm-c);
+    font-size: clamp(1rem, calc(.5rem + 1.5vw), 1.5rem);
+}
+
+footer .get-around {
+
+    display: grid;
+    width: fit-content;
+    height: fit-content;
+    gap: .7rem;
+
+}
+
+footer .get-around a{
+    font-weight: 400;
+}
+
+footer .context{
+    display: grid;
+    place-items: center;
+    gap: 1rem;
+}
+
+footer .context::before{
+    content: '';
+    border-top: var(--sec-c) 1px solid;
+    width: 40%;
+}
+
+
+
+/* keyframes */
+
+@keyframes changeBorderColor {
+
+    50% { border-color: var(--sec-c); }
+
+}
+
+@keyframes changeTextColor {
+
+    50% { color: var(--sec-light-c); }
+
+}
+
+/* media min-width -----------------------*/
+
+@media screen and (min-width: 100rem) {
+
+}
+
+@media screen and (min-width: 768px) {
+
+    .main-nav .primary-navigation a{
+        padding: .5rem;
+    }
+}
+
+
+
+/* media max-width -------------------------- */
+
+
+@media screen and (max-width: 480px) {
+
+    header::after{
+
+        width: 70%;
+    }
+
+    header .main-nav{
+
+        gap: 25%;
+    }
+
+    header .main-nav .details::after{
+
+        font-size: 1.5rem;
+    }
+
+    header .main-nav .primary-navigation {
+        display: none;
+    }
+
+
+
+    /* dropdown menu ---------------- */
+
+    .main-nav .nav-dropdown-menu{
+        display: grid;
+        justify-content: end;
+
+        width: fit-content;
+    }
+
+
+    .main-nav .btn-dropdown-toggle{
+
+        display: grid;
+        place-items: center;
+        padding: 0;
+        aspect-ratio: 1 / 1;
+        border-radius: .4rem;
+        border-style: none;
+        color: var(--sec-light-c);
+        background: none;
+        cursor: pointer;
+        border: var(--sec-c) 2px solid;
+        transition: 150ms ease;
+    }
+
+    .main-nav .btn-dropdown-toggle::before {
+        display: grid;
+        place-items: center;
+        width: clamp(1.5rem, calc(1rem + 3vw), 2rem);
+        aspect-ratio: 1 / 1;
+        font-size: 1rem;
+    }
+
+    .main-nav .nav-menu{
+        display: none;
+        justify-items: center;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        z-index: 50;
+        width: 100%;
+        padding: 1rem;
+        border-radius: .2rem;
+        background-color: var(--main-dark-c);
+        transition: all 150ms ease;
+        border: var(--sec-c) 2px solid;
+    }
+
+
+    .main-nav .nav-menu button {
+        display: none;
+    }
+
+    .main-nav .nav-menu ul {
+        display: grid;
+        width: 100%;
+        height: 100%;
+        gap: .5rem;
+        cursor: default;
+
+    }
+
+    .main-nav .nav-menu ul::before {
+        content: 'Get Around';
+        line-height: 1.5;
+        font-weight: 600;
+        color: var(--warm-c);
+        font-size: clamp(1.5rem, calc(1rem + 3vw), 2rem);
+
+    }
+
+
+    .main-nav .nav-menu ul li{
+        width: 100%;
+        padding: 0;
+        background-color: var(--main-c);
+    }
+
+    .main-nav .nav-menu ul a {
+        display: grid;
+        place-items: center;
+        font-weight: 600;
+        width: 100%;
+        height: 3rem;
+        line-height: 1.5;
+
+        padding: 0;
+    }
+
+
+    /* footer */
+
+
+    footer .get-around::before{
+
+
+        font-size: clamp(1.5rem, calc(.5rem + 2vw), 2.5rem);
+    }
+
+    footer .get-around a{
+        font-size: clamp(1.3rem, calc(.5rem + 1.3vw), 1.7rem);
+        font-weight: 400;
+    }
+
+
+
+}
+
+@media screen and (max-width: 375px) {
+
+
+}
