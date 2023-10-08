@@ -3,15 +3,12 @@
 import os
 import sys
 import dotenv
-import pathlib
 
 
 def main():
     """Run administrative tasks."""
 
-    DOT_RNV_PATH = pathlib.Path() / '.env'
-    if DOT_RNV_PATH.exists():
-        dotenv.read_dotenv(str(DOT_RNV_PATH))
+    dotenv.read_dotenv()
 
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')
     try:
