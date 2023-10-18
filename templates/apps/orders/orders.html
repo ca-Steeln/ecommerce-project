@@ -22,10 +22,13 @@
             {% if obj %}
                 {% for order in obj %}
                     <div class="order">
-                        <a href="{{order.get_order_url}}"><h3>{{order}}</h3></a>
+                        <a href="{{order.get_absolute_url}}"><h3>{{order}}</h3></a>
                         <p> Status: {{order.get_status_display}}</p>
-                        <p> Product count: {{order.products.count}}</p>
-                        <p> Created at: {{order.created_at}}</p>
+                        <p> type: {{order.order_type}}</p>
+                        <p> Product count: {{order.items.count}}</p>
+                        <p> Total Price: {{order.total_price}}</p>
+                        <p> Total Amount: {{order.total_amount}}</p>
+                        <p> Created at: {{order.created_at.date}}</p>
                     </div>
                 {% endfor %}
             {% else %}

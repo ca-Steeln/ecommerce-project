@@ -1,0 +1,15 @@
+
+{#} article element will be applied for each category object {#}
+{% for obj in qs %}
+    <article>
+
+        <h2><a href="{{obj.get_absolute_url}}">{{obj.title}}</a></h2>
+        <img src="{{ obj.image.url }}" style="width:10%;">
+        <p>descripion: {{obj.description}}</p>
+        <h3>price: {{obj.price}}</h3>
+        <p>discount?: {{obj.discount}}</p>
+        <p>active?: {{obj.active}}</p>
+        <p>created_at: {{obj.created_at}}</p>
+
+    </article>
+{% endfor %}

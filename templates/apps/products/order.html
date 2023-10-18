@@ -1,0 +1,36 @@
+
+
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %} Product | Order {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'apps/products/order.css' %}">
+{% endblock head %}
+
+{% block content %}
+    <section class="main-section">
+        <form action="." method="post" hx-post="." hx-swap="none">
+            {% csrf_token %}
+            <div class="htmx-indicator">Loading...</div>
+
+            <p>You about to order this <a href="{{obj.get_absolute_url}}">{{obj.title}}</a>.</p>
+            <input type="checkbox" name="agreement" ><p>I agree to the terms of the [campany name] Subscriber Agreement</p>
+
+            {#} for front-end: display button below disabled when checkbox isn't checked {#}
+            {{form.amount}}
+            {{form.notes}}
+
+            <button type="submit" name="products:order" value="{{obj.id}}" class="primary-link">Order</button>
+
+            {#} previous link <a href=""></a> {#}
+
+        </form>
+    </section>
+{% endblock content %}
+
+
+
+{% block scripts %}
+{% endblock scripts %}

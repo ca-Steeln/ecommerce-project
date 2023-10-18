@@ -10,3 +10,4 @@ class InventoryAdmin(admin.ModelAdmin):
     list_search = ['client']
 
 admin.site.register(Inventory, InventoryAdmin)
+

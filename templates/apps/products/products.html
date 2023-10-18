@@ -16,22 +16,9 @@
 
 {% block content %}
     <section class="main-section">
-        {% if obj %}
+        {% if qs %}
 
-            {#} article element will be applied for each category object {#}
-            {% for object in obj %}
-                <article>
-                    <h3><a href="{{object.get_product_url}}">{{object.title}}</a></h3>
-                    <p>{{object.description}}</p>
-
-                    {% if object.image %}
-                        <img  src="{{ object.image.url }}" style="width:10%;">
-                    {% endif %}
-
-                    <p>Products has a discount?: {{object.discount}}</p>
-                    <p>Products active?: {{object.active}}</p>
-                </article>
-            {% endfor %}
+            {% include "apps/products/forms/products.html" %}
 
         {% else %}
             <p>looks like this page has no content yet.</p>

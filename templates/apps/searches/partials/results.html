@@ -1,0 +1,51 @@
+
+{% if categories_qs or products_qs %}
+    <h2>Results Found:</h2>
+    <br>
+
+    {% if categories_qs %}
+        <p>Categories:</p>
+        {#} categories {#}
+        <article class="resualt-field" id="categories-field">
+
+            {% for obj in categories_qs %}
+                <div class="obj">
+                    <h3><a href="{{obj.get_absolute_url}}">{{obj.title}}</a></h3>
+                    <p>{{obj.description}}</p>
+
+                    {% if obj.image %}
+                        <img  src="{{ obj.image.url }}" style="width:10%;">
+                    {% endif %}
+
+                    <p>category active?: {{obj.active}}</p>
+                </div>
+            {% endfor %}
+        </article>
+        <hr>
+        <br>
+    {% endif %}
+    {% if products_qs %}
+        <p>Products:</p>
+        {#} products {#}
+        <article class="resualt-field" id="products-field">
+            {% for obj in products_qs %}
+                <div class="obj">
+                    <h3><a href="{{obj.get_absolute_url}}">{{obj.title}}</a></h3>
+                    <p>{{obj.description}}</p>
+
+                    {% if obj.image %}
+                        <img  src="{{ obj.image.url }}" style="width:10%;">
+                    {% endif %}
+
+                    <p>Product has a discount?: {{obj.discount}}</p>
+                    <p>Product active?: {{obj.active}}</p>
+                </div>
+            {% endfor %}
+        </article>
+        <hr>
+        <br>
+    {% endif %}
+{% else %}
+
+    <h2> Looks like nothing found.</h2>
+{% endif %}

@@ -50,6 +50,7 @@ def login_form_view(request):
     if request.method == 'POST':
 
         if request.POST.get('registration:login')is not None:
+
             form = LoginForm(request, data=request.POST)
 
             if form.errors:
@@ -57,8 +58,13 @@ def login_form_view(request):
                     error(request, e)
 
             elif form.is_valid():
-                ctx['form'] = LoginForm()
+
                 user = form.get_user()
+                if user.groups.filter(name='banned'):
+                    error(request, 'Your account has been banned. Login is currently restricted for banned users.')
+                    return HttpResponse(status=200)
+
+                ctx['form'] = LoginForm()
                 login(request, user)
 
                 success(request, 'You have successfully logged in.')
@@ -93,7 +99,7 @@ def logout_form_view(request):
             user = request.user
             logout(request)
 
-            reverse_url = reverse('registration:sign-up')
+            reverse_url = reverse('registration:login')
             if request.htmx:
                 headers={
                     'HX-Location': reverse_url

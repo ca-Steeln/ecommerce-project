@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import user_passes_test, login_required
 from django.contrib.auth.models import User
 from django.urls import reverse
 
-from .settings import ABORTED, PAID, SHIPPED, CREATED, REFUNDED, STALE, PENDING
+from .settings import ABORTED, PAID, SHIPPED, CREATED, REFUNDED, STALE, PENDING, INVENTORY_ORDER
 from .models import Order
 
 # Create your views here.
@@ -20,7 +20,7 @@ def orders_view(request, client_pk=None, *args, **kwargs):
     client = get_object_or_404(User, pk=client_pk, id=request.user.id)
     obj = Order.objects.filter(client=client)
 
-    ctx['obj'] = obj
+    ctx['obj'], ctx['client'] = obj, client
     template = 'apps/orders/orders.html'
     return render(request, template, ctx)
 
@@ -32,11 +32,13 @@ def order_view(request, client_pk=None, slug=None, *args, **kwargs):
         raise Http404
 
     client = get_object_or_404(User, pk=client_pk, id=request.user.id)
-    obj = get_object_or_404(Order, client=client, slug=slug)
+    order = get_object_or_404(Order, client=client, slug=slug)
 
-    products = obj.products.all()
+    qs = order.items.all()
 
-    ctx['obj'], ctx['client'], ctx['products'] = obj, client, products
+    order_type = order.order_type == INVENTORY_ORDER
+
+    ctx['order'], ctx['client'], ctx['qs'], ctx['order_type'] = order, client, qs, order_type
     template = 'apps/orders/order.html'
     return render(request, template, ctx)
 
@@ -61,12 +63,12 @@ def abort_order(request, client_pk=None, slug=None, *args, **kwargs):
             obj.save()
             success(request, 'Order has aborted successfully.')
 
-            reverse_url = obj.get_orders_url()
+            reverse_url = obj.get_absolute_url()
             if request.htmx:
                 headers={
                     'HX-Location': reverse_url
                 }
-                return HttpResponse(f'{request.user.username} Aborted order {obj.get_order_url()}. at {obj.updated_at}.', headers=headers)
+                return HttpResponse(f'{request.user.username} Aborted order {obj.get_absolute_url()}. at {obj.updated_at}.', headers=headers)
             return redirect(reverse_url)
 
         else:

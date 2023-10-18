@@ -16,21 +16,55 @@
     <section class="main-section">
         <article>
             <h2>{{client}}'s order</h2>
-            <a href="{{obj.get_abort_url}}" class="regluar-link">Abort Order</a>
-            <p>{{obj.get_status_display}}</p>
-            <p>{{obj.created_at}}</p>
+
+            {% if order_type %}
+
+                {#} if order type is inventory{#}
+                <div id="inventory-order-type">
+                    <a href="{{order.get_abort_url}}" class="regluar-link">Abort Order</a>
+                    <p> Status: {{order.get_status_display}}</p>
+                    <p> Order type: {{order.order_type}}</p>
+                    <p> Product count: {{order.items.count}}</p>
+                    <p> Total Price: {{order.total_price}}</p>
+                    <p> Total Amount: {{order.total_amount}}</p>
+                    <p> Your Note: {{order.notes|default_if_none:"no notes were written"}}</p>
+                    <p> Created at: {{order.created_at.date}}</p>
+                    <p> Updated at: {{order.updated_at.date}}</p>
+                </div>
+            {% else %}
+
+                {#} if order type is single product{#}
+                <div id="product-order-type">
+                    <a href="{{order.get_abort_url}}" class="regluar-link">Abort Order</a>
+                    <p> Status: {{order.get_status_display}}</p>
+                    <p> Order type: {{order.order_type}}</p>
+                    <p> Unit price: {{order.unit_price}}</p>
+                    <p> Total Price: {{order.total_price}}</p>
+                    <p> Amount: {{order.total_amount}}</p>
+                    <p> Your Note: {{order.notes|default_if_none:"no notes were written"}}</p>
+                    <p> Created at: {{order.created_at.date}}</p>
+                    <p> Updated at: {{order.updated_at.date}}</p>
+                </div>
+            {% endif %}
+
         </article>
         <article>
-            {% if products %}
-                {% for product in products %}
-                    <div class="product">
-                        <a href="{{product.get_product_url}}"><h3>{{product.title}}</h3></a>
-                        <p>{{product.description}}</p>
-                        {% if product.image %}
-                            <img  src="{{ product.image.url }}" {#} !! remove -> {#} style="width:10%;">
-                        {% endif %}
-                    </div>
-                {% endfor %}
+            {% if qs %}
+                {% for obj in qs %}
+                    <article>
+
+                        <h2><a href="{{obj.product.get_absolute_url}}">{{obj.product.title}}</a></h2>
+                        <img src="{{ obj.product.image.url }}" style="width:10%;">
+                        <p>descripion: {{obj.product.description}}</p>
+                        <h3>price: {{obj.product.price}}</h3>
+                        <h3>amount: {{obj.amount}}</h3>
+                        <p>discount?: {{obj.product.discount}}</p>
+                        <p>active?: {{obj.product.active}}</p>
+                        <p>created_at: {{obj.product.created_at}}</p>
+
+                    </article>
+            {% endfor %}
+
             {% else %}
                 <p>looks like this page has no content yet.</p>
             {% endif %}

@@ -16,9 +16,9 @@ from .forms import CreateCategoryForm, UpdateCategoryForm
 
 def categories_view(request):
     ctx = {}
-    categories = Category.objects.filter(active=True)
+    qs = Category.objects.filter(active=True)
 
-    ctx['obj'] = categories
+    ctx['qs'] = qs
     template = 'apps/categories/categories.html'
     return render(request, template, ctx)
 
@@ -27,9 +27,9 @@ def category_view(request, name=None):
 
     obj = get_object_or_404(Category, name=name)
 
-    products = Product.objects.filter(category=obj, active=True)
+    qs = Product.objects.filter(category=obj, active=True)
 
-    ctx = {'obj':obj, 'products': products}
+    ctx = {'obj':obj, 'qs': qs}
     template = 'apps/categories/category.html'
     return render(request, template, ctx)
 
@@ -57,7 +57,7 @@ def create_category(request):
 
                 # htmx request need to be dynamic redirect
 
-                reverse_url = category.get_category_url()
+                reverse_url = category.get_absolute_url()
                 if request.htmx:
                     headers={
                         'HX-Location': reverse_url
@@ -98,7 +98,7 @@ def update_category(request, name=None):
                 category.save()
                 ctx['obj'] = category
 
-                reverse_url = category.get_category_url()
+                reverse_url = category.get_absolute_url()
                 if request.htmx:
                     headers={
                         'HX-Location': reverse_url
@@ -123,12 +123,13 @@ def update_category(request, name=None):
 @user_passes_test(lambda user: user.is_superuser)
 def delete_category(request, name=None):
 
+
     ctx = {}
     user = get_object_or_404(User, id=request.user.id)
     obj = get_object_or_404(Category, name=name)
     if request.method == 'POST':
         if request.POST.get('categories:delete') is not None:
-            if not obj.is_superuser:
+            if not user.is_superuser:
                 raise Http404
 
             obj.delete()
@@ -144,3 +145,4 @@ def delete_category(request, name=None):
     ctx['obj'] = obj
     template = 'apps/categories/delete.html'
     return render(request, template, ctx)
+

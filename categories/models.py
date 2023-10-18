@@ -3,13 +3,32 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import pre_save, post_save
 from django.urls import reverse
+from django.db.models import Q
 
 from .utils import slugify_instance
 # Create your models here.
 
+
+class CategoriesQuertSet(models.QuerySet):
+    def search(self, query=None):
+        if query is None:
+            return self.none()
+
+        lookups = Q(title__icontains=query) | Q(name__icontains=query) | Q(description__icontains=query)
+        return self.filter(lookups)
+
+class CategoriesManager(models.Manager):
+
+    def get_queryset(self):
+        return CategoriesQuertSet(self.model, using=self._db)
+
+    def search(self, query):
+        return self.get_queryset().search(query=query)
+
+
 class Category(models.Model):
 
-    author = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
+    author = models.ForeignKey(User, on_delete=models.DO_NOTHING, blank=True)
     name = models.CharField(max_length=128, unique=True)
     title = models.CharField(max_length=128, unique=True)
     description = models.CharField(max_length=5000)
@@ -17,6 +36,8 @@ class Category(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     slug = models.SlugField(unique=True, blank=True)
     active = models.BooleanField(default=True)
+
+    objects = CategoriesManager()
 
     def directory_path(instance, filename):
         return f"categories/category_{instance.id}/{filename}"
@@ -31,7 +52,7 @@ class Category(models.Model):
 
     # reverse urls
 
-    def get_category_url(self):
+    def get_absolute_url(self):
         return reverse("categories:category", kwargs={"name": self.name})
 
     def get_update_url(self):

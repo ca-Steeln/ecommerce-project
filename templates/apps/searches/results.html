@@ -1,0 +1,21 @@
+
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %} Search | Resaults {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'apps/searches/resault.css' %}">
+{% endblock head %}
+
+{% block content %}
+    <section class="main-section">
+        <article class="objects-field" id="objects-field">
+
+            {% include "apps/searches/partials/results.html" %}
+        </article>
+    </section>
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}

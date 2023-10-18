@@ -18,32 +18,10 @@
 
 {% block content %}
     <section class="main-section">
-        {% if obj %}
-            <article>
-                <h3>{{obj.title}}</h3>
-                <p>{{obj.description}}</p>
-
-                {% if obj.image %}
-                    <img  src="{{ object.image.url }}" style="width:10%;">
-                {% endif %}
-
-                <input type="checkbox" checked={{obj.active}} disabled>
-            </article>
-            <article>
-                {% for product in products %}
-                    <div class="product">
-
-                        <a href="{{product.get_product_url}}"><h3>{{product.title}}</h3></a>
-                        <h4>{{product.adminPrice}}</h4>
-                        <h4>{{product.clientPrice}}</h4>
-                        <p>{{product.description}}</p>
-                        {% if product.image %}
-                            <img  src="{{ product.image.url }}" style="width:10%;">
-                        {% endif %}
-                    </div>
-
-                {% endfor %}
-            </article>
+        {% if qs %}
+        <section class="products-section">
+            {% include "apps/products/forms/products.html" %}
+        </section>
         {% else %}
             <p>looks like this page has no content yet.</p>
         {% endif %}

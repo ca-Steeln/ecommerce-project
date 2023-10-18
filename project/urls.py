@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', include('registration.urls')),
+    path('search', include('searches.urls')),
     path('', include('pages.urls')),
     path('', include('htmx_messages.urls')),
     path('accounts/', include('accounts.urls')),

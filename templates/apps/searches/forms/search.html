@@ -1,0 +1,16 @@
+
+
+<form action="{% url 'searches:search' %}" method="GET" hx-get="{% url 'searches:search' %}"
+ hx-target="#objects-field" value="{{request.GET.q}}" hx-trigger="#submit-search">
+
+    <input type="search" name="q">
+
+    <select name="type" >
+
+        <option value="all">All</option>
+        <option value="categories">Categories</option>
+        <option value="products">Prodcuts</option>
+    </select>
+
+    <button class="submit" id="submit-search">Search</button>
+</form>

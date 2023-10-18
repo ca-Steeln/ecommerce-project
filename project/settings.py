@@ -34,6 +34,7 @@ ALLOWED_HOSTS = [environ.get('ALLOWED_HOSTS')]
 
 INSTALLED_APPS = [
     'registration.apps.RegistrationConfig',
+    'searches.apps.SearchesConfig',
     'categories.apps.CategoriesConfig',
     'pages.apps.PagesConfig',
     'htmx_messages.apps.HtmxMessagesConfig',
@@ -92,7 +93,7 @@ DATABASES = {
     }
 }
 
-DATABASES['default'] = parse(environ.get('DATABASE_URL'))
+# DATABASES['default'] = parse(environ.get('DATABASE_URL'))
 
 
 

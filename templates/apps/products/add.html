@@ -1,0 +1,35 @@
+
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %} Products | Add Items Inventory {% endblock title %}
+
+{% block head %}
+
+{% endblock head %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'apps/products/add.css' %}">
+    <section class="main-section">
+        <form action="." method="post" hx-post="." hx-swap="none" >
+
+            {% csrf_token %}
+            <div class="htmx-indicator">Loading...</div>
+
+            <p>Are sure you want to Add that <a href="{{obj.get_absolute_url}}">Product</a> to your inventory?</p>
+
+            <input type="checkbox" name="agreement" ><p>I agree to the terms of the [campany name] Subscriber Agreement</p>
+            {{form.amount}}
+            <button type="submit" name="products:add" value="{{obj.id}}" class="primary-link">Add</button>
+
+            {#} previous link <a href=""></a> {#}
+
+        </form>
+    </section>
+
+{% endblock content %}
+
+
+
+{% block scripts %}
+{% endblock scripts %}

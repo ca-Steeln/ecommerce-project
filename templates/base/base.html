@@ -24,11 +24,15 @@
 
             <nav class="primary-navigation">
 
-                {% include "base/nav.html" %}
+                {% include "base/partials/second-nav.html" %}
 
                 {% block navigation %}
                 {% endblock navigation %}
             </nav>
+
+            <div class="search-field">
+                {% include "apps/searches/forms/search.html" %}
+            </div>
 
 
             {% comment %} <div class="nav-dropdown-menu" id="nav-dropdown-menu">

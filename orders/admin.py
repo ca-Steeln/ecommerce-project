@@ -7,6 +7,9 @@ from .models import Order
 
 class OrderAdmin(admin.ModelAdmin):
     model = Order
-    list_display = ['id', 'client', 'status', 'created_at', 'updated_at', 'slug']
+    list_display = [
+        'client', 'status', 'order_type', 'total_price' , 'total_amount', 'payment_method','created_at',
+        ]
+
 
 admin.site.register(Order, OrderAdmin)

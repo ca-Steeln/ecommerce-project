@@ -4,7 +4,7 @@
 {% extends "base/base.html" %}
 {% load static %}
 
-{% block title %} Categories | Delete {{obj.name|default="Category"}} {% endblock title %}
+{% block title %} Categories | Delete {{obj.name|default:"Category"}} {% endblock title %}
 
 {% block head %}
     <link rel="stylesheet" href="{% static 'apps/categories/delete.css' %}">
@@ -18,7 +18,7 @@
             {% csrf_token %}
             <div class="htmx-indicator">Loading...</div>
 
-            <p>Are sure you want to delete <a href="{{obj.get_category_url}}">{{obj.name|default:Category}}</a>?</p>
+            <p>Are sure you want to delete <a href="{{obj.get_absolute_url}}">{{obj.name}}</a>?</p>
             <button type="submit" name="categories:delete">Delete</button>
 
             {#} previous link <a href=""></a> {#}

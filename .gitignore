@@ -162,4 +162,4 @@ cython_debug/
 #.idea/
 
 # django-htmx
-django-htmx.js/
+django-htmx.js

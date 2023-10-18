@@ -1,28 +1,27 @@
 
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.urls import reverse
 from django.dispatch import receiver
-from django.contrib.auth.models import User, AbstractUser
+from django.contrib.auth.models import User
 from django.db.models.signals import post_save
+from django.conf import settings
 
 from inventories.models import Inventory
-from orders.models import Order
+
 
 # Create your models here.
 
 
 
-def get_account_url(self):
+def get_absolute_url(self):
     return reverse("accounts:account", kwargs={"pk": self.pk})
-User.add_to_class('get_account_url', get_account_url)
+User.add_to_class('get_absolute_url', get_absolute_url)
 
-def get_edit_account_url(self):
+def get_update_url(self):
     return reverse("accounts:edit", kwargs={"pk": self.pk})
-User.add_to_class('get_edit_account_url', get_edit_account_url)
+User.add_to_class('get_update_url', get_update_url)
 
-# class Abstract(AbstractUser):
-#     pass
 
 class Account(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -36,4 +35,16 @@ def user_created(sender, instance, created, **kwargs):
     if created:
         Account.objects.create(user=instance)
         Inventory.objects.create(client=instance)
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def user_groups(sender, instance, **kwargs):
+
+    if instance.groups.filter(name='banned').exists():
+        # data panel:
+        # instance tried connect banned account
+        return
+
+    elif instance:
+        group, ok = Group.objects.get_or_create(name="default")
+        group.user_set.add(instance)
 

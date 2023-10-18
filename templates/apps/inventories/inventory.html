@@ -19,18 +19,22 @@
             <a href="{{obj.get_order_url}}">Order</a>
         </article>
         <article>
-            {% if products %}
-                {% for product in products %}
+            {% if items %}
+                {% for item in items %}
                     <div class="product">
-                        <a href="{{product.get_product_url}}"><h3>{{product.title}}</h3></a>
-                        <p>{{product.description}}</p>
-                        {% if product.image %}
-                            <img  src="{{ product.image.url }}" {#} !! remove -> {#} style="width:10%;">
-                        {% endif %}
+                        <a href="{{item.product.get_absolute_url}}"><h3>{{item.product.title}}</h3></a>
+                        <p>{{item.product.description}}</p>
+                        <img  src="{{ item.product.image.url }}" style="width:10%;">
+                        <p>price: {{item.product.price}}</p>
+                        <p>amount: {{item.amount}}</p>
+                        <p>discount: {{item.product.discount}}</p>
 
-                        <a href="{% url 'inventories:delete' client_pk=client.pk product_slug=product.slug %}">Delete</a>
+                        <a href="{% url 'inventories:delete' client_pk=client.pk product_slug=item.product.slug %}">Delete</a>
                     </div>
                 {% endfor %}
+                <hr>
+                <br>
+                <p>{{products}}</p>
             {% else %}
                 <p>looks like this page has no content yet.</p>
             {% endif %}
