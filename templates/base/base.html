@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %} Library {% endblock title %}</title>
 
-    <link rel="stylesheet" href="{% static 'base/base.css' %}">
+    <link rel="stylesheet" href="{% static 'base/base.css' %}" >
     <link rel="stylesheet" href="{% static 'messages/toasts.css' %}">
     {% block head %}
     {% endblock head %}
@@ -24,7 +24,7 @@
 
             <nav class="primary-navigation">
 
-                {% include "base/partials/second-nav.html" %}
+                {% include "base/partials/navigation.html" %}
 
                 {% block navigation %}
                 {% endblock navigation %}
@@ -101,6 +101,7 @@
 
     <script src="{% static 'base/base.js' %}"></script>
     <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+    {% comment %} <script src="https://unpkg.com/htmx.org/dist/ext/head-support.js"></script> {% endcomment %}
     <script src="{% static 'messages/toasts.js' %}"></script>
     <script>
         document.body.addEventListener("htmx:configRequest", (e)=>{

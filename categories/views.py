@@ -3,16 +3,18 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.messages import error, success
 from django.http import HttpResponse, Http404
 from django.contrib.auth.decorators import user_passes_test, login_required
-from django.contrib.auth.models import User
 from django.urls import reverse
 
+from registration.models import CustomUser
 from products.models import Product
+from decorators.decorators import admin_only
 
 from .models import Category
 from .forms import CreateCategoryForm, UpdateCategoryForm
 
 
 # Create your views here.
+
 
 def categories_view(request):
     ctx = {}
@@ -23,9 +25,9 @@ def categories_view(request):
     return render(request, template, ctx)
 
 
-def category_view(request, name=None):
+def category_view(request, slug=None):
 
-    obj = get_object_or_404(Category, name=name)
+    obj = get_object_or_404(Category, slug=slug)
 
     qs = Product.objects.filter(category=obj, active=True)
 
@@ -34,8 +36,7 @@ def category_view(request, name=None):
     return render(request, template, ctx)
 
 
-@login_required
-@user_passes_test(lambda user: user.is_staff)
+@admin_only
 def create_category(request):
     ctx = {}
 
@@ -75,12 +76,11 @@ def create_category(request):
     return render(request, template, ctx)
 
 
-@login_required
-@user_passes_test(lambda user: user.is_staff)
-def update_category(request, name=None):
+@admin_only
+def update_category(request, slug=None):
     ctx = {}
 
-    obj = get_object_or_404(Category, name=name)
+    obj = get_object_or_404(Category, slug=slug)
 
     if request.method == 'POST':
 
@@ -119,14 +119,13 @@ def update_category(request, name=None):
     return render(request, template, ctx)
 
 
-@login_required
-@user_passes_test(lambda user: user.is_superuser)
-def delete_category(request, name=None):
+@admin_only
+def delete_category(request, slug=None):
 
 
     ctx = {}
-    user = get_object_or_404(User, id=request.user.id)
-    obj = get_object_or_404(Category, name=name)
+    user = get_object_or_404(CustomUser, id=request.user.id)
+    obj = get_object_or_404(Category, slug=slug)
     if request.method == 'POST':
         if request.POST.get('categories:delete') is not None:
             if not user.is_superuser:

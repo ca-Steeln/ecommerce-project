@@ -16,13 +16,8 @@
 
 {% block content %}
     <section class="main-section">
-        {% if qs %}
 
-            {% include "apps/products/forms/products.html" %}
-
-        {% else %}
-            <p>looks like this page has no content yet.</p>
-        {% endif %}
+        {% include "apps/products/forms/products.html" %}
     </section>
 {% endblock content %}
 

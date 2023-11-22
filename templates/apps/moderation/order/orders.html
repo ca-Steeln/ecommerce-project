@@ -1,0 +1,28 @@
+
+{% extends "moderation/base/base.html" %}
+{% load static %}
+
+{% block title %} Dashboard | Orders {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'dashboard/apps/orders.css' %}">
+{% endblock head %}
+
+{% block navigation %}
+{% endblock navigation %}
+
+{% block content %}
+
+    <div class>
+        <h1>Orders Modrator</h1>
+
+        <h3>Orders Count: {{qs_count}}</h3>
+
+        <h3>Orders Inventory Type Count: {{qs_inventory_type.count}}</h3>
+        <h3>Orders Single Product Type Count: {{qs_product_type.count}}</h3>
+    </div>
+{% endblock content %}
+
+
+{% block scripts %}
+{% endblock scripts %}

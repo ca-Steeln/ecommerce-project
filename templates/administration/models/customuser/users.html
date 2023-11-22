@@ -1,0 +1,39 @@
+
+
+{% extends "administration/base/base.html" %}
+{% load static %}
+
+{% block title %} Administration | Users Management {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static '' %}">
+{% endblock head %}
+
+{% block navigation %}
+{% endblock navigation %}
+
+{% block content %}
+
+    <h1>Users Management</h1>
+
+    {% for obj in qs %}
+        <lu>
+            <h3><a href="{{obj.account.get_absolute_url}}">{{obj.username}}</a> - <a href="{{obj.get_manage_url}}">Manage User</a></h3>
+            <li>User ID: {{obj.id}}</li>
+            <li>Account ID: {{obj.account.id}}</li>
+
+            <li>Status: {{obj.get_status_display}}</li>
+            <li>Role: {{obj.get_role_display}}</li>
+
+            <li>Email: {{obj.email}}</li>
+            <li>Phone: {{obj.account.phone}}</li>
+        </lu>
+    {% endfor %}
+
+{% endblock content %}
+
+
+{% block scripts %}
+{% endblock scripts %}
+
+

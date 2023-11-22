@@ -1,0 +1,57 @@
+
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Administration | Base {% endblock title %}</title>
+
+    <link rel="stylesheet" href="{% static 'administration/base/base.css' %}" >
+    <link rel="stylesheet" href="{% static 'messages/toasts.css' %}">
+    {% block head %}
+    {% endblock head %}
+
+</head>
+<body>
+
+    <header>
+        <nav class="main-nav" id="main-nav-id">
+
+            <div class="details"></div>
+
+            <nav class="primary-navigation">
+
+                {% include "administration/base/partials/navigation.html" %}
+
+                {% block navigation %}
+                {% endblock navigation %}
+            </nav>
+        </nav>
+    </header>
+
+    {% include 'messages/toasts.html' %}
+
+    {% block content %}
+    {% endblock content %}
+
+    <footer>
+    </footer>
+
+    <script src="{% static 'administration/base/base.js' %}"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+    <script src="{% static 'messages/toasts.js' %}"></script>
+    <script>
+        document.body.addEventListener("htmx:configRequest", (e)=>{
+            e.detail.headers['X-CSRFToken'] = '{{ csrf_token }}'
+        })
+
+    </script>
+
+    {% block scripts %}
+    {% endblock scripts %}
+
+</body>
+</html>

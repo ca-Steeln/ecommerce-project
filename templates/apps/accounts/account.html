@@ -10,8 +10,8 @@
 {% endblock head %}
 
 {% block navigation %}
-    {% if user.id == obj.id %}
-        <a href="{{user.get_edit_account_url}}" class="primary-link">Edit Account</a>
+    {% if user.pk == obj.pk %}
+        <a href="{{user.account.get_update_url}}" class="primary-link">Edit Account</a>
     {% endif %}
 
 {% endblock navigation %}

@@ -1,0 +1,76 @@
+
+
+{% extends "administration/base/base.html" %}
+{% load static %}
+
+{% block title %} Administration | Product Management {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'administration/management/product.css' %}">
+{% endblock head %}
+
+{% block navigation %}
+{% endblock navigation %}
+
+{% block content %}
+
+
+    <h1>Product Management</h1>
+    <form action="." method="post" hx-post="." hx-swap="none" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="htmx-indicator">Loading...</div>
+
+
+        <li>Author: {{obj.author}}</li>
+
+        <li>ID: {{obj.id}}</li>
+
+        <label for="{{form.category.id_for_label}}">
+            {{form.category}}
+        </label>
+
+        <label for="{{form.name.id_for_label}}">
+            {{form.name}}
+        </label>
+
+        <label for="{{form.title.id_for_label}}">
+            {{form.title}}
+        </label>
+
+        <label for="{{form.description.id_for_label}}">
+            {{form.description}}
+        </label>
+
+        <label for="{{form.image.id_for_label}}">
+            {{form.image}}
+        </label>
+
+        <label for="{{form.quantity.id_for_label}}">
+            {{form.quantity}}
+        </label>
+
+        <label for="{{form.has_discount.id_for_label}}">
+            {{form.has_discount}}
+        </label>
+
+        <label for="{{form.active.id_for_label}}">
+            {{form.active}}
+        </label>
+
+        <li>Price: {{obj.price}}</li>
+
+        <li>Slug: {{obj.slug}}</li>
+
+        <li>Created_at: {{obj.created_at}}</li>
+        <li>Updated_at: {{obj.updated_at}}</li>
+
+        <button name="product:managed" value="{{obj.slug}}">Save</button>
+        <a href="{{obj.get_delete_url}}">Delete</a>
+
+    </form>
+
+{% endblock content %}
+
+
+{% block scripts %}
+{% endblock scripts %}

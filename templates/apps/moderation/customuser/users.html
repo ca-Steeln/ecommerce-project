@@ -1,0 +1,43 @@
+
+{% extends "moderation/base/base.html" %}
+{% load static %}
+
+{% block title %} Dashboard | Users {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'dashboard/apps/users.css' %}">
+{% endblock head %}
+
+{% block navigation %}
+{% endblock navigation %}
+
+{% block content %}
+
+    <div class>
+        <h1>Dashboard Users</h1>
+
+        <h2>Users</h2>
+
+        <h3>Users: {{qs_count}}</h3>
+        <br>
+
+        <h2>Status</h2>
+        <h3>Active Status Users: {{active.count}}</h3>
+        <h3>Banned Status Users: {{banned.count}}</h3>
+        <h3>Deleted Status Users: {{deleted.count}}</h3>
+
+        <h2>Roles</h2>
+        <h3>Admin Role Users: {{admin.count}}</h3>
+        <h3>Moderator Role Users: {{mod.count}}</h3>
+        <h3>Default Role Users: {{default.count}}</h3>
+        <br>
+
+        <br>
+
+    </div>
+
+{% endblock content %}
+
+
+{% block scripts %}
+{% endblock scripts %}

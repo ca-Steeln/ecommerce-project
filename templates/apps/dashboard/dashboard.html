@@ -1,0 +1,24 @@
+
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %} Dashboard | Dashboard View {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static '' %}">
+{% endblock head %}
+
+{% block navigation %}
+    {% include "apps/dashboard/navigation.html" %}
+{% endblock navigation %}
+
+{% block content %}
+    <section class="main-section">
+        <h1> Welcome To Dashboard </h1>
+    </section>
+{% endblock content %}
+
+
+{% block scripts %}
+    <script src="{% static 'apps/dashboard/dashboard.js' %}" defer></script>
+{% endblock scripts %}

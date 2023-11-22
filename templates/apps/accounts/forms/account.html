@@ -4,8 +4,11 @@
     {% csrf_token %}
     <div class="htmx-indicator">Loading...</div>
 
-    {{obj.username}}
-    {{obj.created_at}}
-    {{obj.image}}
+    <p>{{obj.username}}</p>
 
+    <img src="{{obj.account.image.url}}">
+
+    <p>Status: {{obj.status}}</p>
+    <p>Role: {{obj.role}}</p>
+    <p>Date Joined: {{obj.date_joined}}</p>
 </form>

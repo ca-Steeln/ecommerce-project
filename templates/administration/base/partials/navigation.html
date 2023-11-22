@@ -1,0 +1,16 @@
+
+
+
+{#} staff user links {#}
+{% if user.is_staff %}
+
+    <a href="{% url 'administration:users'%}" class="primary-link">Users</a>
+    <a href="{% url 'administration:products'%}" class="primary-link">Products</a>
+    <a href="{% url 'administration:orders'%}" class="primary-link">Orders</a>
+    <a href="{% url 'administration:categories'%}" class="primary-link">Categories</a>
+
+{% endif %}
+
+{#} public links {#}
+<a href="{% url 'pages:home' %}" class="regular-link">Back To Site</a>
+

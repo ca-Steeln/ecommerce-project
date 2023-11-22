@@ -1,0 +1,49 @@
+
+
+{#} staff user links {#}
+{% if user.is_staff %}
+    <a href="{% url 'administration:administration' %}" class="primary-link">Administration</a>
+{% endif %}
+
+{#} mod user links {#}
+{% if user.is_mod %}
+    <a href="{% url 'moderation:moderation' %}" class="primary-link">Moderation</a>
+{% endif %}
+
+{#} manager user links {#}
+{% if user.is_manager %}
+    <a href="{% url 'dashboard:dashboard' %}" class="primary-link">Dashboard</a>
+{% endif %}
+
+
+
+{#} public links {#}
+<a href="{% url 'pages:home' %}" class="regular-link">Introduction</a>
+<a href="{% url 'pages:about' %}"  class="primary-link">Learn More</a>
+<a href="{% url 'categories:categories' %}" class="primary-link">Categories</a>
+
+
+{#} authenticated user links {#}
+{% if user.is_authenticated %}
+
+    <a href="{% url 'orders:orders' pk=user.pk %}" class="primary-link">Orders</a>
+    <a href="{% url 'inventories:inventory' pk=user.pk %}" class="primary-link">Inventory</a>
+
+    {% if not request.path == user.account.get_absolute_url %}
+        <a href="{{user.account.get_absolute_url}}" class="primary-link">{{user.username}}</a>
+    {% endif %}
+    <a href="{% url 'registration:logout' %}" class="regular-link">Logout</a>
+
+{% endif %}
+
+
+{% if user.is_anonymous %}
+
+    {#} Anonymous links {#}
+    <a href="{% url 'registration:login' %}" class="regular-link">Login</a>
+
+{% endif %}
+
+{#} public links {#}
+<a href="{% url 'registration:sign-up' %}" class="primary-link">Sign Up</a>
+

@@ -50,6 +50,6 @@ class UpdateCategoryForm(forms.ModelForm):
         data = self.cleaned_data
         if not data['image']:
             # default categories image.
-            data['image'] = 'categories/default/categories-default-icon.jpg'
+            data['image'] = 'categories/defaults/default-icon.jpg'
 
         return data

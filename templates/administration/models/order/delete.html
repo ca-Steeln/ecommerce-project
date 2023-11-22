@@ -1,0 +1,35 @@
+
+{% extends "administration/base/base.html" %}
+{% load static %}
+
+{% block title %} Administration | Order Delete {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static '' %}">
+{% endblock head %}
+
+{% block content %}
+
+    <section class="main-section">
+        <form action="." method="post" hx-post="." hx-swap="none" >
+
+            {% csrf_token %}
+            <div class="htmx-indicator">Loading...</div>
+
+            <p>Are sure you want to delete <a href="{{obj.get_absolute_url}}">Order - {{obj.id}}</a>?</p>
+            <button type="submit" name="order:deleted" value="{{obj.slug}}">Delete</button>
+
+            {#} previous link <a href=""></a> {#}
+
+        </form>
+    </section>
+
+{% endblock content %}
+
+
+
+{% block scripts %}
+{% endblock scripts %}
+
+
+

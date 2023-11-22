@@ -1,0 +1,29 @@
+
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %} Administration | Set Banned User {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static '' %}">
+{% endblock head %}
+
+{% block content %}
+    <section class="main-section">
+        <form action="." method="post" hx-post="{{obj.get_ban_group_url}}" hx-swap="none">
+            {% csrf_token %}
+            <div class="htmx-indicator">Loading...</div>
+
+            <p>Are sure you want to set <a href="{{obj.account.get_absolute_url}}">{{obj.username}}</a> as a banned user?</p>
+            <button type="submit" name="customuser:banned" value="{{obj.pk}}">Set Ban</button>
+
+            {#} previous link <a href=""></a> {#}
+
+        </form>
+    </section>
+{% endblock content %}
+
+
+
+{% block scripts %}
+{% endblock scripts %}

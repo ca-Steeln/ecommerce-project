@@ -4,9 +4,13 @@ from django.contrib.auth import login, logout
 from django.contrib.messages import success, error
 from django.urls import reverse
 from django.http import HttpResponse
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required
 
+from decorators.decorators import group_required, anonymous_only
 
+from project.settings import CLIENT_GROUP
+
+from .models import CustomUser
 from .forms import RegisterForm, LoginForm
 
 # Create your views here.
@@ -23,9 +27,7 @@ def register_form_view(request):
 
             elif form.is_valid():
                 user = form.save()
-                ctx['form'] = RegisterForm()
                 login(request, user)
-
                 success(request, 'You have successfully logged in.')
 
                 reverse_url = reverse('pages:home')
@@ -42,8 +44,7 @@ def register_form_view(request):
     template = 'apps/registration/sign-up.html'
     return render(request, template, ctx)
 
-
-@user_passes_test(lambda user: user.is_anonymous)
+@anonymous_only
 def login_form_view(request):
     ctx = {}
 
@@ -89,8 +90,7 @@ def login_form_view(request):
     #     template = 'apps/registration/forms/login.html'
     return render(request, template, ctx)
 
-@login_required(login_url= '/login')
-@user_passes_test(lambda user: user.is_authenticated)
+@login_required(login_url='login/')
 def logout_form_view(request):
     ctx = {}
 
@@ -109,4 +109,5 @@ def logout_form_view(request):
 
     template = 'apps/registration/logout.html'
     return render(request, template, ctx)
+
 

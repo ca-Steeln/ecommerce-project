@@ -17,7 +17,8 @@
             <div class="htmx-indicator">Loading...</div>
 
             <p>You about to order the products that in your <a href="{{obj.get_absolute_url}}">Inventory</a>.</p>
-            <input type="checkbox" name="agreement" ><p>I agree to the terms of the [campany name] Subscriber Agreement</p>
+            {{form.agreement}}<p>I agree to the terms of the [campany name] Subscriber Agreement</p>
+            {{form.note}}
 
             {#} for front-end: display button below disabled when checkbox isn't checked {#}
             <button type="submit" name="inventories:order" value="{{obj.id}}">Order</button>

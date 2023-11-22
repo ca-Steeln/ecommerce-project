@@ -1,0 +1,28 @@
+
+
+{% extends "moderation/base/base.html" %}
+{% load static %}
+
+{% block title %} Moderation | Categories {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static '' %}">
+{% endblock head %}
+
+{% block navigation %}
+{% endblock navigation %}
+
+{% block content %}
+    <div class>
+        <h1>Categories Modrator</h1>
+
+        <h3>Categories Count: {{qs_count}}</h3>
+    </div>
+
+
+
+{% endblock content %}
+
+
+{% block scripts %}
+{% endblock scripts %}

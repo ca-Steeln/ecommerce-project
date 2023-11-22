@@ -1,0 +1,45 @@
+
+
+{% extends "administration/base/base.html" %}
+{% load static %}
+
+{% block title %} Accounts | Account Management {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static '' %}">
+{% endblock head %}
+
+{% block navigation %}
+{% endblock navigation %}
+
+{% block content %}
+
+
+    <h1>Account Management</h1>
+    <form action="." method="post" hx-post="." hx-swap="none">
+        {% csrf_token %}
+        <div class="htmx-indicator">Loading...</div>
+
+        <h2>Owner: {{obj.user.username}}</h2>
+        <h2>Owner ID: {{obj.user.id}}</h2>
+
+        <h3>ID: {{obj.id}}</h3>
+
+        <p>{{obj.phone}}</p>
+
+        <label for="{{form.image.id_for_label}}">
+            {{form.image}}
+        </label>
+
+        <p>Date Joined: {{obj.user.date_joined.date}}</p>
+        <p>Last Login: {{obj.user.last_login.date}}</p>
+
+        <button name="account:managed" value="{{obj.pk}}">Save</button>
+
+    </form>
+
+{% endblock content %}
+
+
+{% block scripts %}
+{% endblock scripts %}

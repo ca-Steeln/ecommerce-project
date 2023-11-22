@@ -27,9 +27,7 @@
                         <p>{{obj.description}}</p>
                         <p>{{obj.created_at}}</p>
 
-                        {% if obj.image %}
-                            <img  src="{{ obj.image.url }}" style="width:10%;">
-                        {% endif %}
+                        <img  src="{{ obj.image.url }}" style="width:10%;">
 
                         <p>category active?: {{obj.active}}</p>
                     </div>

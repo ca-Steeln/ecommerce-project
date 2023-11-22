@@ -1,7 +1,7 @@
 
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.models import User
+from .models import CustomUser
 
 class RegisterForm(UserCreationForm):
     username = forms.CharField(max_length=100)
@@ -15,7 +15,7 @@ class RegisterForm(UserCreationForm):
     }
 
     class Meta:
-        model = User
+        model = CustomUser
         fields = ['username', 'email', 'password1', 'password2']
 
     def clean(self):
@@ -23,7 +23,7 @@ class RegisterForm(UserCreationForm):
         email = data.get('email')
 
         if email:
-            qs = User.objects.filter(email__icontains=email)
+            qs = CustomUser.objects.filter(email__icontains=email)
             if qs.exists():
                 self.add_error('email', 'Email is already in use.')
 
@@ -45,10 +45,10 @@ class RegisterForm(UserCreationForm):
 class LoginForm(AuthenticationForm):
 
     error_messages = {
-    "invalid_login": "Invalid username or password"
+    "invalid_login": "Invalid Username or Password."
     }
     class Meta:
-        model = User
+        model = CustomUser
         fields = ['username', 'password']
 
     def __init__(self, *args, **kwargs) -> None:

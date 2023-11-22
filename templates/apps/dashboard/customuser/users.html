@@ -1,0 +1,38 @@
+
+{% extends "apps/dashboard/dashboard.html" %}
+{% load static %}
+
+{% block title %} Dashboard | Users {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'apps/dashboard/customuser/users.css' %}">
+{% endblock head %}
+
+{% block content %}
+
+    <div class>
+        <h1>Dashboard Users</h1>
+
+    </div>
+
+    <div style="height:300px; width:300px;">
+        <canvas id="statusChart"></canvas>
+        <canvas id="rolesChart"></canvas>
+        <button id="refreshBtn">Refresh</button>
+    </div>
+
+    <section>
+        <ul>
+            {% for user in qs %}
+                <li><h3><a href="{{user.get_dashboard_url}}">{{user.username}}</a></h3></li>
+            {% endfor %}
+        </ul>
+    </section>
+
+{% endblock content %}
+
+
+{% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'apps/dashboard/customuser/users.js' %}" defer></script>
+{% endblock scripts %}

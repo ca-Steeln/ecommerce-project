@@ -1,0 +1,35 @@
+
+{% extends "apps/dashboard/dashboard.html" %}
+{% load static %}
+
+{% block title %} Dashboard | User {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static '' %}">
+{% endblock head %}
+
+
+{% block content %}
+
+    <div class>
+        <h1>Dashboard User</h1>
+
+
+        <h3><a href="{{obj.account.get_absolute_url}}" class="primary-link">{{obj.username}}</a></h3>
+
+        <h4>Pk: <span id='obj-pk'>{{obj.pk}}</span> </h4>
+
+        <p>Role: {{obj.role}}</p>
+
+        <p>Created at: {{obj.created_at}}</p>
+        <p>Updated at: {{obj.updated_at}}</p>
+        <p>Last Login: {{obj.last_login}}</p>
+
+    </div>
+
+{% endblock content %}
+
+
+{% block scripts %}
+    <script src="{% static 'apps/dashboard/customuser/user.js' %}" defer></script>
+{% endblock scripts %}

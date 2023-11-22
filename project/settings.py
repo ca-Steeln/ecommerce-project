@@ -26,15 +26,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG =  str(environ.get('DEBUG')).lower() == 'true'
+DEBUG = str(environ.get('DEBUG')).lower() == 'true'
 
 ALLOWED_HOSTS = [environ.get('ALLOWED_HOSTS')]
-
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
+    'decorators.apps.DecoratorsConfig',
     'registration.apps.RegistrationConfig',
-    'searches.apps.SearchesConfig',
+    'exceptions.apps.ExceptionsConfig',
     'categories.apps.CategoriesConfig',
     'pages.apps.PagesConfig',
     'htmx_messages.apps.HtmxMessagesConfig',
@@ -45,11 +46,32 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_htmx',
+    'dashboard',
     'accounts.apps.AccountsConfig',
     'products.apps.ProductsConfig',
     'inventories.apps.InventoriesConfig',
     'orders.apps.OrdersConfig',
+    'searches.apps.SearchesConfig',
+    'moderation',
+    'administration',
 ]
+
+# CHANNEL_LAYERS = {
+#     "default": {
+#         "BACKEND": "channels_redis.core.RedisChannelLayer",
+#         "CONFIG": {
+#             "hosts": [('127.0.0.1', 6379)],
+#         },
+#     },
+# }
+
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    },
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -60,8 +82,16 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_htmx.middleware.HtmxMiddleware',
-    'htmx_messages.middleware.HtmxMessagesMiddleware',
+    # 'htmx_messages.middleware.HtmxMessagesMiddleware',
+    # 'accounts.middleware.MiddlewarePermissions',
+    # 'inventories.middleware.MiddlewarePermissions',
+    # 'orders.middleware.MiddlewarePermissions',
+    # 'moderation.middleware.MiddlewarePermissions',
+    # 'dashboard.middleware.MiddlewarePermissions',
+    # 'administration.middleware.MiddlewarePermissions',
 ]
+
+
 
 ROOT_URLCONF = 'project.urls'
 
@@ -80,8 +110,9 @@ TEMPLATES = [
         },
     },
 ]
-WSGI_APPLICATION = 'project.wsgi.application'
 
+# WSGI_APPLICATION = 'project.wsgi.application'
+ASGI_APPLICATION = 'project.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -162,3 +193,44 @@ MESSAGE_TAGS = {
     ERROR: 'error-toast',
 }
 
+
+AUTH_USER_MODEL = 'registration.CustomUser'
+
+# Groups Levels, Choices
+
+BANNED_GROUP = 'banned'
+CLIENT_GROUP = 'client'
+MOD_GROUP = 'moderator'
+MANAGER_GROUP = 'manager'
+ADMIN_GROUP = 'admin'
+USER_GROUPS_CHOICES = [
+    (BANNED_GROUP, 'Banned'),
+    (CLIENT_GROUP, 'Client'),
+    (MOD_GROUP, 'Moderator'),
+    (MANAGER_GROUP, 'Manager'),
+    (ADMIN_GROUP, 'Admin'),
+]
+
+# User Status, Choices
+
+ACTIVE_USER = 'active'
+BANNED_USER = 'banned'
+DELETED_USER = 'deleted'
+USER_STATUS_CHOICES = [
+    (ACTIVE_USER, 'Active'),
+    (BANNED_USER, 'Banned'),
+    (DELETED_USER, 'Deleted'),
+]
+
+# User Roles, Choices
+
+DEFAULT_ROLE = 'default'
+MOD_ROLE = 'moderator'
+MANAGER_ROLE = 'manager'
+ADMIN_ROLE = 'admin'
+USER_ROLES_CHOICES = [
+    (DEFAULT_ROLE, 'Default'),
+    (MOD_ROLE, 'Moderator'),
+    (MANAGER_ROLE, 'Manager'),
+    (ADMIN_ROLE, 'Admin'),
+]

@@ -10,7 +10,7 @@
 
 {% block navigation %}
     {% if user.is_staff %}
-        <a href="{% url 'products:create' category_name=obj.name %}" class="primary-link">Create Product</a>
+        <a href="{% url 'administration:product-create' %}" class="primary-link">Create Product</a>
         <a href="{{obj.get_update_url}}" class="regular-link">Update</a>
         <a href="{{obj.get_delete_url}}" class="regular-link">Delete</a>
     {% endif %}
@@ -18,13 +18,7 @@
 
 {% block content %}
     <section class="main-section">
-        {% if qs %}
-        <section class="products-section">
-            {% include "apps/products/forms/products.html" %}
-        </section>
-        {% else %}
-            <p>looks like this page has no content yet.</p>
-        {% endif %}
+        {% include "apps/products/forms/products.html" %}
     </section>
 {% endblock content %}
 

@@ -1,0 +1,26 @@
+
+
+{% extends "apps/dashboard/dashboard.html" %}
+{% load static %}
+
+{% block title %} Dashboard | Categories {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static '' %}">
+{% endblock head %}
+
+
+{% block content %}
+    <div class>
+        <h1>Categories Dashboard</h1>
+
+        <h3>Categories Count: {{qs_count}}</h3>
+    </div>
+
+
+
+{% endblock content %}
+
+
+{% block scripts %}
+{% endblock scripts %}

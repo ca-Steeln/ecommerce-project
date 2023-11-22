@@ -1,6 +1,9 @@
 
-django==3.2.22
+
+django==4.2
 django-dotenv
+channels==3.0.5
+channels_redis==3.4.1
 gunicorn
 psycopg2-binary
 django-htmx
@@ -13,3 +16,6 @@ pathlib
 dj-database-url
 psycopg2
 gunicorn
+django-phonenumber-field
+django-phonenumbers
+functools

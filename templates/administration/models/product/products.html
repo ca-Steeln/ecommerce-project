@@ -1,0 +1,39 @@
+
+{% extends "administration/base/base.html" %}
+{% load static %}
+
+{% block title %} Products | Products Management {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'administration/management/product.css' %}">
+{% endblock head %}
+
+{% block navigation %}
+    <a href="{% url 'administration:product-create' %}" class="primary-link">Create</a>
+{% endblock navigation %}
+
+{% block content %}
+    <section class="main-section">
+        {% for product in qs %}
+            <h3><a href="{{product.get_absolute_url}}">{{product.name}}</a> - <a href="{{product.get_manage_url}}">Manage Product</a></h3>
+            <ul>
+                <li>Product Title: {{product.title}}</li>
+                <li>ID: {{product.id}}</li>
+
+                <li>Author: {{product.author}}</li>
+                <li>Category: {{product.category}}</li>
+
+                <li>Active?: {{product.active}}</li>
+                <li>Discount?: {{product.has_discount}}</li>
+
+                <li>Last Update: {{product.updated_at}}</li>
+            </ul>
+        {% empty %}
+            <p> No Products Found.</p>
+        {% endfor %}
+    </section>
+{% endblock content %}
+
+
+{% block scripts %}
+{% endblock scripts %}

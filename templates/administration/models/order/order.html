@@ -1,0 +1,72 @@
+
+{% extends "administration/base/base.html" %}
+{% load static %}
+
+{% block title %} Orders | Order Management {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static '' %}">
+{% endblock head %}
+
+
+{% block content %}
+    <section class="main-section">
+        <form action="." method="post" hx-post="." hx-swap="none">
+
+            {% csrf_token %}
+            <div class="htmx-indicator">Loading...</div>
+
+                <h3>Clinet: {{obj.client}} - {{obj.client.id}}</h3>
+
+                <p>Order Type: {{obj.order_type}}</p>
+
+                <label for="{{form.status.id_for_label}}">
+                    {{form.status}}
+                </label>
+
+                <p> Unit Price: {{obj.unit_price}}</p>
+
+                <p>Totle Price: {{obj.total_price}}</p>
+
+                <p>Total Amount: {{obj.total_amount}}</p>
+
+                <label for="{{form.shipping_method.id_for_label}}">
+                    <p>Shipping Method:</p> {{form.shipping_method}}
+                </label>
+
+                <label for="{{form.shipping_cost.id_for_label}}">
+                    <p>Shipping Cost:</p> {{form.shipping_cost}}
+                </label>
+
+                <p>Payment Method: {{obj.payment_method}}</p>
+                <p>Transaction ID: {{obj.transaction_id}}</p>
+                <p>Tracking Number: {{obj.tracking_number}}</p>
+
+                <p>Created At: {{obj.created_at}}</p>
+                <p>Updated At: {{obj.updated_at}}</p>
+
+                <p>Slug: {{obj.slug}}</p>
+
+                <h2>Items Orderd Count: {{obj.items.count}}</h2>
+
+                {% for item in obj.items.all %}
+                    <h4>{{item.product.title}}</h4>
+                    <ul>
+                        <li>Product ID: {{item.product.id}}</li>
+                        <li>Amount: {{item.amount}} </li>
+                    </ul>
+                {% empty %}
+                    <p> something went worng, could not find any items for that order. </p>
+                {% endfor %}
+
+
+
+            <button name="order:managed" value="{{obj.slug}}">Save</button>
+            <a href="{{obj.get_delete_url}}">Delete</a>
+        </form>
+    </section>
+{% endblock content %}
+
+
+{% block scripts %}
+{% endblock scripts %}

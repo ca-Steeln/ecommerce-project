@@ -1,7 +1,8 @@
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse
 from django.contrib.messages import success, error
-
+from django.urls import reverse
 
 # Create your views here.
 
@@ -11,6 +12,7 @@ def home_view(request):
     message = request.POST.get('message')
     if message is not None:
         success(request, 'Greetings')
+
 
     template = 'apps/pages/home.html'
     return render(request, template, ctx)

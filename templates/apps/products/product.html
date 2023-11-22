@@ -11,7 +11,7 @@
 {% block navigation %}
 
     {% if user.is_staff %}
-        <a href="{{obj.get_update_url}}" class="primary-link">Update</a>
+        <a href="{{obj.get_manage_url}}" class="primary-link">Manage</a>
         <a href="{{obj.get_delete_url}}" class="primary-link">Delete</a>
     {% endif %}
 {% endblock navigation %}
@@ -25,18 +25,18 @@
                 <p>descripion: {{obj.description}}</p>
                 <h3>price: {{obj.price}}</h3>
                 <p>quantity: {{obj.quantity}}</p>
-                <p>discount?: {{obj.discount}}</p>
+                <p>discount?: {{obj.has_discount}}</p>
                 <p>active?: {{obj.active}}</p>
                 <p>created_at: {{obj.created_at}}</p>
                 <img src="{{ obj.image.url }}" style="width:20%;">
 
-                <form action="." method="post" hx-post="." hx-swap="none">
+                <form action="." method="post" hx-post=".">
                     {% csrf_token %}
                     <div class="htmx-indicator">Loading...</div>
 
-                    <div class="nav-product-actions" hx-boost="true" >
-                        <a href="{{obj.get_add_url}}" hx-swap="outerHTML">Add</a>
-                        <a href="{{obj.get_order_url}}" hx-swap="outerHTML">Order</a>
+                    <div class="nav-product-actions" >
+                        <a href="{{obj.get_add_url}}" >Add</a>
+                        <a href="{{obj.get_order_url}}">Order</a>
                     </div>
 
                 </form>

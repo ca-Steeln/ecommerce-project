@@ -10,8 +10,8 @@ app_name = 'categories'
 urlpatterns = [
     path('', categories_view, name='categories'),
     path('create/', create_category, name='create'),
-    path('<str:name>/', category_view, name='category'),
-    path('<str:name>/update/', update_category, name='update'),
-    path('<str:name>/delete/', delete_category, name='delete'),
+    path('<slug:slug>/', category_view, name='category'),
+    path('<slug:slug>/update/', update_category, name='update'),
+    path('<slug:slug>/delete/', delete_category, name='delete'),
 
 ]

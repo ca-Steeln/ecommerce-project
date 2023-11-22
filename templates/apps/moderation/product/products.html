@@ -1,0 +1,25 @@
+
+{% extends "moderation/base/base.html" %}
+{% load static %}
+
+{% block title %} Dashboard | Products {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'dashboard/apps/products.css' %}">
+{% endblock head %}
+
+{% block navigation %}
+{% endblock navigation %}
+
+{% block content %}
+    <div class>
+        <h1>Products Modrator</h1>
+
+        <h3>Products Count: {{qs_count}}</h3>
+    </div>
+
+{% endblock content %}
+
+
+{% block scripts %}
+{% endblock scripts %}

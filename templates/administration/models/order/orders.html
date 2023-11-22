@@ -1,0 +1,37 @@
+
+{% extends "administration/base/base.html" %}
+{% load static %}
+
+{% block title %} Orders | View {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static '' %}">
+{% endblock head %}
+
+{% block navigation %}
+{% endblock navigation %}
+
+{% block content %}
+    <section class="main-section">
+
+        {% for order in qs %}
+            <h3><a href="{{order.get_manage_url}}">Order - {{order.id}}</a></h3>
+            <ul>
+                <li>Client: {{order.client.username}}</li>
+                <li>Client ID: {{order.client.id}}</li>
+                <li>Order Status: {{order.get_status_display}}</li>
+                <li>Order Type: {{order.order_type}}</li>
+                <li>Order Total Price: {{order.total_price}}</li>
+                <li>Order Total Amount: {{order.total_amount}}</li>
+                <li>Last Update: {{order.updated_at}}</li>
+            </ul>
+
+        {% empty %}
+            <p>looks like this page has no content yet.</p>
+        {% endfor %}
+    </section>
+{% endblock content %}
+
+
+{% block scripts %}
+{% endblock scripts %}

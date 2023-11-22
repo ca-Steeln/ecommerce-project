@@ -10,7 +10,7 @@ class ProductAdmin(admin.ModelAdmin):
     model = Product
 
     list_display = [
-        'category', 'name', 'price', 'quantity', 'discount', 'updated_at', 'active',
+        'category', 'name', 'price', 'quantity', 'has_discount', 'updated_at', 'active',
     ]
     search_fields = ['id', 'name', 'title']
 

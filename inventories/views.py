@@ -3,25 +3,25 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.messages import error, success, info
 from django.http import HttpResponse, Http404
 from django.contrib.auth.decorators import user_passes_test, login_required
-from django.contrib.auth.models import User
 from django.urls import reverse
 
-from products.models import  Product
+from registration.models import CustomUser
 from orders.models import Order
 from orders.settings import INVENTORY_ORDER, CREATED
+from decorators.decorators import owner_only
 
 from .models import Inventory
+from .forms import ProductItemForm
+
 # Create your views here.
 
 
-@login_required
-def inventory_view(request, client_pk=None, *args, **kwargs):
+@owner_only
+def inventory_view(request, pk=None):
+
     ctx = {}
 
-    if not request.user.pk == client_pk:
-        raise Http404
-
-    client = get_object_or_404(User, pk=client_pk, id=request.user.id)
+    client = get_object_or_404(CustomUser, pk=pk)
     inventory = get_object_or_404(Inventory, client=client)
     items = inventory.items.all()
 
@@ -30,51 +30,44 @@ def inventory_view(request, client_pk=None, *args, **kwargs):
     template = 'apps/inventories/inventory.html'
     return render(request, template, ctx)
 
+@owner_only
+def order_inventory(request, pk=None):
 
-def order_inventory(request, client_pk=None, *args, **kwargs):
-
-    if not request.user.pk == client_pk:
-        raise Http404
-
-    client = get_object_or_404(User, pk=client_pk, id=request.user.id)
+    client = get_object_or_404(CustomUser, pk=pk)
     inventory = get_object_or_404(Inventory, client=client)
     items = inventory.items
     if request.method == 'POST':
 
+        form = ProductItemForm(request.POST)
+
         if request.POST.get('inventories:order') is not None:
 
-            if items.count() <= 0:
-                error(request, 'Inventory has no products to order.')
-                return HttpResponse(status=200)
 
-            elif request.POST.get('agreement') is None:
-                error(request, 'Invalid argument.')
-                return HttpResponse(status=200)
+            if form.errors:
+                for k, e in form.errors.items():
+                    error(request, e)
 
-            # note: make sure that if really u need to check that.
-            # that were made to not override orders with same status and items or products.
+            # Order.by_user_pk.is_created().exists()
             elif client.order_set.filter(status=CREATED).exists():
                 error(request, 'Duplicate ordering detected, Recent order still in first state.')
                 return HttpResponse(status=200)
 
-            else:
-                order = Order.objects.create(
-                    client=client, order_type=INVENTORY_ORDER, status=CREATED,
-                    )
+            elif form.is_valid():
 
+                note = form.cleaned_data['note']
+
+                order = Order.objects.create(client=client, order_type=INVENTORY_ORDER, note=note)
                 total_amount, total_price = 0, 0
-
                 for item in items.all():
                     order.items.add(item)
                     total_amount += item.amount
-                    total_price += item.product.price
+                    total_price += item.product.price * item.amount
 
                 order.total_amount = total_amount
                 order.total_price = total_price
+
                 order.save()
-
                 items.clear()
-
                 success(request, 'Order has been created successfully.')
 
                 reverse_url = order.get_absolute_url()
@@ -85,19 +78,19 @@ def order_inventory(request, client_pk=None, *args, **kwargs):
                     return HttpResponse(status=200, headers=headers)
                 return redirect(reverse_url)
 
+    else:
+        form = ProductItemForm()
 
-    ctx= {'obj':inventory}
+    ctx= {'form':form, 'obj':inventory}
 
     template = 'apps/inventories/order.html'
     return render(request, template, ctx)
 
+@owner_only
+def delete_product(request, pk=None, product_slug=None):
 
-def delete_product(request, client_pk=None, product_slug=None, *args, **kwargs):
 
-    if not request.user.pk == client_pk:
-        raise Http404
-
-    client = get_object_or_404(User, pk=client_pk, id=request.user.id, username=request.user.username)
+    client = get_object_or_404(CustomUser, pk=pk)
     inventory = get_object_or_404(Inventory, client=client)
 
     # get the product to remove from client invetory !!!
@@ -135,13 +128,10 @@ def delete_product(request, client_pk=None, product_slug=None, *args, **kwargs):
     template = 'apps/inventories/delete.html'
     return render(request, template, ctx)
 
+@owner_only
+def clear_inventory(request, pk=None):
 
-def clear_inventory(request, client_pk=None, *args, **kwargs):
-
-    if not request.user.pk == client_pk:
-        raise Http404
-
-    client = get_object_or_404(User, pk=client_pk, id=request.user.id, username=request.user.username)
+    client = get_object_or_404(CustomUser, pk=pk)
     inventory = get_object_or_404(Inventory, client=client)
 
     if request.method == 'POST':

@@ -27,3 +27,10 @@ ORDER_TYPE_CHOICES = [
     (PRODUCT_ORDER, 'Product Order'),
 
 ]
+
+
+# shipping methods
+DEFAULT_SHIPPING_METHOD = 'default'
+SHIPPING_METHODS = [
+    (DEFAULT_SHIPPING_METHOD, 'Default')
+]

@@ -27,7 +27,7 @@
                     <p> Product count: {{order.items.count}}</p>
                     <p> Total Price: {{order.total_price}}</p>
                     <p> Total Amount: {{order.total_amount}}</p>
-                    <p> Your Note: {{order.notes|default_if_none:"no notes were written"}}</p>
+                    <p> Your Note: {{order.note}}</p>
                     <p> Created at: {{order.created_at.date}}</p>
                     <p> Updated at: {{order.updated_at.date}}</p>
                 </div>
@@ -41,7 +41,7 @@
                     <p> Unit price: {{order.unit_price}}</p>
                     <p> Total Price: {{order.total_price}}</p>
                     <p> Amount: {{order.total_amount}}</p>
-                    <p> Your Note: {{order.notes|default_if_none:"no notes were written"}}</p>
+                    <p> Your Note: {{order.note}}</p>
                     <p> Created at: {{order.created_at.date}}</p>
                     <p> Updated at: {{order.updated_at.date}}</p>
                 </div>

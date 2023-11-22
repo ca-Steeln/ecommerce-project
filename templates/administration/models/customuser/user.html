@@ -1,0 +1,60 @@
+
+{% extends "administration/base/base.html" %}
+{% load static %}
+
+{% block title %} Administration | User Management {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'administration/management/user.css' %}">
+{% endblock head %}
+
+{% block navigation %}
+{% endblock navigation %}
+
+{% block content %}
+
+
+    <h1>User Management</h1>
+    <form action="." method="post" hx-post="." hx-swap="none">
+        {% csrf_token %}
+        <div class="htmx-indicator">Loading...</div>
+
+        <h3><a href="{{obj.account.get_manage_url}}">Manage Account</a> - <a href="{{obj.get_user_orders_url}}" class="primary-link">Orders</a></h3>
+
+        <h2>Username: {{obj.username}}</h2>
+
+        <h3>ID: {{obj.id}}</h3>
+
+        <p>{{obj.email}}</p>
+
+        <ul>
+            <h4>User Groups:</h4>
+            {% for group in groups %}
+                <li>{{group.name}}</li>
+            {% empty %}
+                <li>{{obj.username}} has no groups.</li>
+            {% endfor %}
+        </ul>
+
+        <label for="{{form.status.id_for_label}}">
+            {{form.status}}
+        </label>
+
+        <p>Role: {{obj.role}}</p>
+
+        <button name="customuser:managed" value="{{obj.pk}}">Save</button>
+
+        {% if user.is_staff %}
+            <a href="{{obj.set_default}}">Default</a>
+            <a href="{{obj.set_mod}}">Moderator</a>
+            <a href="{{obj.set_manager}}">Manager</a>
+            <a href="{{obj.set_banned}}">Ban</a>
+        {% endif %}
+
+    </form>
+
+{% endblock content %}
+
+
+{% block scripts %}
+{% endblock scripts %}

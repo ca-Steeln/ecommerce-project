@@ -1,0 +1,43 @@
+
+{% extends "administration/base/base.html" %}
+{% load static %}
+
+{% block title %} Categories | View {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'apps/categories/categories.css' %}">
+{% endblock head %}
+
+{% block navigation %}
+    {% if user.is_staff %}
+        <a href="{% url 'administration:category-create' %}" class="regular-link">Create</a>
+    {% endif %}
+{% endblock navigation %}
+
+{% block content %}
+    <section class="main-section">
+
+        {% for category in qs %}
+            <h3><a href="{{category.get_absolute_url}}">{{category.name}}</a> - <a href="{{category.get_manage_url}}">Manage Category</a></h3>
+            <ul>
+                <li>Product Title: {{category.title}}</li>
+                <li>ID: {{category.id}}</li>
+
+                <li>Author: {{category.author}}</li>
+
+                <li>Description?: {{category.description}}</li>
+
+                <li>Active?: {{category.active}}</li>
+
+                <li>Last Update: {{category.updated_at}}</li>
+            </ul>
+
+        {% empty %}
+            <p>looks like this page has no content yet.</p>
+        {% endfor %}
+    </section>
+{% endblock content %}
+
+
+{% block scripts %}
+{% endblock scripts %}

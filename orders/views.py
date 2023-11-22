@@ -3,53 +3,44 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.messages import error, success
 from django.http import HttpResponse, Http404
 from django.contrib.auth.decorators import user_passes_test, login_required
-from django.contrib.auth.models import User
 from django.urls import reverse
+
+from registration.models import CustomUser
+from decorators.decorators import owner_only
 
 from .settings import ABORTED, PAID, SHIPPED, CREATED, REFUNDED, STALE, PENDING, INVENTORY_ORDER
 from .models import Order
 
 # Create your views here.
 
-def orders_view(request, client_pk=None, *args, **kwargs):
+@owner_only
+def orders_view(request, pk=None):
     ctx = {}
 
-    if not request.user.pk == client_pk:
-        raise Http404
-
-    client = get_object_or_404(User, pk=client_pk, id=request.user.id)
+    client = get_object_or_404(CustomUser, pk=pk)
     obj = Order.objects.filter(client=client)
 
     ctx['obj'], ctx['client'] = obj, client
     template = 'apps/orders/orders.html'
     return render(request, template, ctx)
 
-
-def order_view(request, client_pk=None, slug=None, *args, **kwargs):
+@owner_only
+def order_view(request, pk=None, slug=None):
     ctx = {}
-
-    if not request.user.pk == client_pk:
-        raise Http404
-
-    client = get_object_or_404(User, pk=client_pk, id=request.user.id)
+    client = get_object_or_404(CustomUser, pk=pk)
     order = get_object_or_404(Order, client=client, slug=slug)
-
     qs = order.items.all()
-
     order_type = order.order_type == INVENTORY_ORDER
 
     ctx['order'], ctx['client'], ctx['qs'], ctx['order_type'] = order, client, qs, order_type
     template = 'apps/orders/order.html'
     return render(request, template, ctx)
 
-# unfinished code need(template, view)
-def abort_order(request, client_pk=None, slug=None, *args, **kwargs):
+@owner_only
+def abort_order(request, pk=None, slug=None):
     ctx = {}
 
-    if not request.user.pk == client_pk:
-        raise Http404
-
-    client = get_object_or_404(User, pk=client_pk, id=request.user.id)
+    client = get_object_or_404(CustomUser, pk=pk)
     obj = get_object_or_404(Order, client=client, slug=slug)
 
     if request.method == 'POST':

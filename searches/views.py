@@ -3,17 +3,9 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 from .models import Search
-
-from categories.models import Category
-from products.models import Product
+from .settings import SEARCH_TYPE_MAPPING
 
 # Create your views here.
-
-SEARCH_TYPE_MAPPING = {
-
-    'categories': Category,
-    'products': Product
-}
 
 def search_view(request):
     ctx={}

@@ -1,0 +1,23 @@
+
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %} exception 404 | Page not found {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'apps/accounts/account.css' %}">
+{% endblock head %}
+
+{% block navigation %}
+{% endblock navigation %}
+
+{% block content %}
+    <section class="main-section" id="account-main-section">
+        <h1>404</h1>
+        <h2>Page Not Found. 😕</h2>
+    </section>
+{% endblock content %}
+
+
+{% block scripts %}
+{% endblock scripts %}

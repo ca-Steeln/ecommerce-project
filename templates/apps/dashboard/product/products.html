@@ -1,0 +1,22 @@
+
+{% extends "apps/dashboard/dashboard.html" %}
+{% load static %}
+
+{% block title %} Dashboard | Products {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static '' %}">
+{% endblock head %}
+
+{% block content %}
+    <div class>
+        <h1>Products Dashboard</h1>
+
+        <h3>Products Count: {{qs_count}}</h3>
+    </div>
+
+{% endblock content %}
+
+
+{% block scripts %}
+{% endblock scripts %}

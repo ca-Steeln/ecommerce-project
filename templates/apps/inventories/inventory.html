@@ -29,7 +29,7 @@
                         <p>amount: {{item.amount}}</p>
                         <p>discount: {{item.product.discount}}</p>
 
-                        <a href="{% url 'inventories:delete' client_pk=client.pk product_slug=item.product.slug %}">Delete</a>
+                        <a href="{% url 'inventories:delete' pk=client.pk product_slug=item.product.slug %}">Delete</a>
                     </div>
                 {% endfor %}
                 <hr>
